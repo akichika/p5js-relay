@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #fbf7f8;
+    --line: #ecd6de;
+    --text: #1a1a1a;
+    --dim: #7a6b70;
+    --accent: #ed225d;
+    --accent-strong: #c8154b;
+    --input-bg: #ffffff;
+  }
+  :root[data-theme="dark"] {
+    --bg: #141416; --panel: #1d1b1d; --line: #3a2c33; --text: #f2f2f2;
+    --dim: #a08e96; --accent: #ff4d82; --accent-strong: #ff6f9a; --input-bg: #121013;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141416; --panel: #1d1b1d; --line: #3a2c33; --text: #f2f2f2;
+      --dim: #a08e96; --accent: #ff4d82; --accent-strong: #ff6f9a; --input-bg: #121013;
+    }
+  }
+  body {
+    width: 300px; margin: 0;
+    background: var(--bg); color: var(--text);
+    font-family: "Montserrat", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+    font-size: 13px;
+  }
+  header {
+    padding: 12px 14px 10px;
+    border-bottom: 3px solid var(--accent);
+    font-weight: 800; font-size: 14px;
+  }
+  header .p5, header .ast { color: var(--accent); }
+  main { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+  label { color: var(--dim); font-size: 11.5px; display: block; margin-bottom: 4px; font-weight: 700; }
+  select {
+    width: 100%; background: var(--input-bg); color: var(--text);
+    border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; font-size: 12.5px;
+  }
+  button {
+    font: inherit; cursor: pointer; border-radius: 999px;
+    border: 0; background: var(--accent); color: #fff;
+    padding: 10px 12px; font-weight: 700;
+    box-shadow: 0 3px 10px rgba(237, 34, 93, 0.3);
+  }
+  button:hover { background: var(--accent-strong); }
+  button:disabled { opacity: 0.4; cursor: default; box-shadow: none; }
+  #preview {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px; max-height: 90px; overflow: hidden;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10.5px;
+    white-space: pre; color: var(--dim);
+  }
+  footer {
+    padding: 8px 14px 12px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer a { color: var(--accent); text-decoration: none; font-size: 12px; cursor: pointer; font-weight: 700; }
+  #result { font-size: 11px; color: var(--dim); }
+  .popup-about {
+    padding: 0 14px 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10.5px; color: var(--dim);
+  }
+  .popup-about a { color: var(--dim); text-decoration: none; }
+  .popup-about a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<header><span class="ast">✳</span><span class="p5">p5.js</span> Relay</header>
+<main>
+  <div>
+    <label for="target" data-i18n="popDefault"></label>
+    <select id="target"></select>
+  </div>
+  <div>
+    <label data-i18n="popLast"></label>
+    <div id="preview"></div>
+  </div>
+  <button id="resend" disabled data-i18n="popResend"></button>
+  <span id="result"></span>
+</main>
+<footer>
+  <a id="openOptions" data-i18n="popOptions"></a>
+</footer>
+<div class="popup-about">
+  <span>© 2026 akichika</span>
+  <a href="https://x.com/akichika" target="_blank" rel="noopener noreferrer">X (@akichika)</a>
+</div>
+<script src="i18n.js"></script>
+<script src="theme.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

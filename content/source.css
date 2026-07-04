@@ -1,0 +1,179 @@
+/* p5.js Relay - 反映ボタン
+   p5.jsブランドのピンク(#ED225D)を基調にした、浮いた(elevated)ピル型ボタン。
+   ライト/ダークはボタンwrapのdata-cr-theme属性で切替(設定: system/light/dark)。 */
+
+.coderelay-btn-wrap {
+  position: absolute;
+  right: 10px;
+  display: inline-flex;
+  z-index: 2147483600; /* サイト側のオーバーレイに負けないように最大級 */
+  font-family: "Montserrat", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 6px; /* シンプルな長方形 */
+  opacity: 0.92;
+  transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  /* 浮いたデザイン: ピンクのソフトシャドウ */
+  box-shadow: 0 3px 10px rgba(237, 34, 93, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2);
+  animation: coderelay-in 0.25s ease;
+}
+@keyframes coderelay-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 0.92; transform: translateY(0); }
+}
+.coderelay-btn-wrap:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(237, 34, 93, 0.45), 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .coderelay-btn-wrap, .coderelay-btn-wrap:hover { animation: none; transform: none; }
+}
+
+/* 上下2か所配置 */
+.coderelay-btn-wrap.coderelay-pos-top { top: 44px; bottom: auto; } /* 純正コピーボタンを避けてやや下 */
+.coderelay-btn-wrap.coderelay-pos-bottom { top: auto; bottom: 10px; }
+
+.coderelay-main,
+.coderelay-more {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: #fff;
+  background: #ed225d; /* p5.js pink */
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.coderelay-main {
+  padding: 7px 11px 7px 9px;
+  border-radius: 0;
+}
+.coderelay-more {
+  padding: 7px 9px;
+  border-radius: 0 6px 6px 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+/* 左端のドラッグ用グリップ: 幅10pxの斜線(ハッチ)パターン。
+   一般的なドラッグハンドルの意匠(斜めリッジ)に合わせたシンプルなデザイン */
+.coderelay-grip {
+  width: 5px;
+  flex: none;
+  align-self: stretch;
+  cursor: grab;
+  touch-action: none;
+  border-radius: 6px 0 0 6px;
+  background-color: #ed225d; /* ボタン本体と同色 */
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.75) 0 1px,
+    transparent 1px 4px
+  );
+}
+.coderelay-grip:active {
+  cursor: grabbing;
+}
+.coderelay-main:hover,
+.coderelay-more:hover {
+  background: #f43f74;
+}
+/* p5.jsを意識した6本スポークのアスタリスク(SVG) */
+.coderelay-ico {
+  width: 13px;
+  height: 13px;
+  display: block;
+  flex: none;
+}
+.coderelay-btn-wrap[data-state="sending"] .coderelay-ico {
+  animation: coderelay-spin 0.9s linear infinite;
+}
+@keyframes coderelay-spin {
+  to { transform: rotate(360deg); }
+}
+.coderelay-btn-wrap[data-state="done"] .coderelay-main,
+.coderelay-btn-wrap[data-state="done"] .coderelay-more {
+  background: #16a34a;
+}
+.coderelay-btn-wrap[data-state="error"] .coderelay-main,
+.coderelay-btn-wrap[data-state="error"] .coderelay-more {
+  background: #991b1b;
+}
+
+/* Gemini Canvas パネル用: 少し大きく常時視認できる */
+.coderelay-btn-wrap.coderelay-canvas {
+  opacity: 0.95;
+  font-size: 12.5px;
+}
+.coderelay-canvas .coderelay-main { padding: 8px 13px 8px 11px; }
+.coderelay-canvas .coderelay-more { padding: 8px 10px; }
+
+/* ---- 送信先メニュー (テーマ対応) ---- */
+.coderelay-menu {
+  z-index: 2147483601;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  min-width: 190px;
+  border-radius: 12px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  font-weight: 600;
+}
+.coderelay-menu.coderelay-menu-below {
+  bottom: auto;
+  top: calc(100% + 6px);
+}
+.coderelay-menu-item {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 8px 11px;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+}
+.coderelay-menu-empty { cursor: default; }
+
+/* ライトテーマ */
+.coderelay-btn-wrap[data-cr-theme="light"] .coderelay-menu {
+  background: #ffffff;
+  border: 1px solid #f3cdd9;
+  color: #1a1a1a;
+}
+.coderelay-btn-wrap[data-cr-theme="light"] .coderelay-menu-item { color: #1a1a1a; }
+.coderelay-btn-wrap[data-cr-theme="light"] .coderelay-menu-item:hover {
+  background: #fde8ef;
+  color: #ed225d;
+}
+.coderelay-btn-wrap[data-cr-theme="light"] .coderelay-menu-empty { color: #8a8a8a; }
+
+/* ダークテーマ */
+.coderelay-btn-wrap[data-cr-theme="dark"] .coderelay-menu {
+  background: #1b1b1f;
+  border: 1px solid #3d2a33;
+  color: #f2f2f2;
+}
+.coderelay-btn-wrap[data-cr-theme="dark"] .coderelay-menu-item { color: #f2f2f2; }
+.coderelay-btn-wrap[data-cr-theme="dark"] .coderelay-menu-item:hover {
+  background: #33222b;
+  color: #ff6494;
+}
+.coderelay-btn-wrap[data-cr-theme="dark"] .coderelay-menu-empty { color: #9a9a9a; }
+
+/* claude.ai用の常設フローティング転送ボタン(画面右下固定) */
+.coderelay-btn-wrap.coderelay-fab {
+  position: fixed;
+  right: 18px;
+  bottom: 88px; /* 入力欄を避ける */
+  top: auto;
+  opacity: 0.95;
+}

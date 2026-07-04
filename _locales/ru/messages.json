@@ -1,0 +1,200 @@
+{
+  "appName": {
+    "message": "p5.js Relay"
+  },
+  "appDesc": {
+    "message": "Мгновенно переносите код Claude, ChatGPT или Gemini в p5.js Web Editor и другие редакторы. Отлично подходит для vibe coding."
+  },
+  "ctxSend": {
+    "message": "p5.js Relay: перенести выделенное в место назначения"
+  },
+  "btnApply": {
+    "message": "Перенести"
+  },
+  "btnCanvas": {
+    "message": "Перенести"
+  },
+  "stSending": {
+    "message": "Отправка…"
+  },
+  "stDone": {
+    "message": "✓ Перенесено"
+  },
+  "stFail": {
+    "message": "✕ Ошибка"
+  },
+  "tipApply": {
+    "message": "Перенести в редактор по умолчанию (p5.js Relay)"
+  },
+  "tipPick": {
+    "message": "Выбрать место назначения"
+  },
+  "menuEmpty": {
+    "message": "Нет зарегистрированных мест назначения"
+  },
+  "errNoRule": {
+    "message": "Нет зарегистрированного места назначения. Добавьте его на странице настроек."
+  },
+  "errCanvasExtract": {
+    "message": "Не удалось извлечь код из панели Canvas."
+  },
+  "errInject": {
+    "message": "Не удалось вставить код"
+  },
+  "errEditorNotFound": {
+    "message": "Редактор не найден (тип: $TYPE$, селектор: $SEL$). Попробуйте установить тип \"auto\" в настройках.",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      },
+      "sel": {
+        "content": "$2"
+      }
+    }
+  },
+  "popDefault": {
+    "message": "Место назначения по умолчанию"
+  },
+  "popLast": {
+    "message": "Последний перенесённый код"
+  },
+  "popNone": {
+    "message": "(пока ничего)"
+  },
+  "popResend": {
+    "message": "Отправить последний код повторно"
+  },
+  "popOptions": {
+    "message": "Управление местами назначения…"
+  },
+  "popAppliedTo": {
+    "message": "✓ Перенесено в $TARGET$ ($DETAIL$)",
+    "placeholders": {
+      "target": {
+        "content": "$1"
+      },
+      "detail": {
+        "content": "$2"
+      }
+    }
+  },
+  "optTagline": {
+    "message": "Регистрируйте места вставки кода для каждого сайта"
+  },
+  "optClearBefore": {
+    "message": "Заменять существующий код при переносе (если выключено — добавлять в конец)"
+  },
+  "optTheme": {
+    "message": "Тема"
+  },
+  "themeSystem": {
+    "message": "Системная"
+  },
+  "themeLight": {
+    "message": "Светлая"
+  },
+  "themeDark": {
+    "message": "Тёмная"
+  },
+  "thDefault": {
+    "message": "По умолчанию"
+  },
+  "thEnabled": {
+    "message": "Включено"
+  },
+  "thName": {
+    "message": "Название"
+  },
+  "thUrl": {
+    "message": "Шаблон URL (для поиска вкладки)"
+  },
+  "thOpenUrl": {
+    "message": "URL для открытия"
+  },
+  "thEditor": {
+    "message": "Тип редактора"
+  },
+  "thSelector": {
+    "message": "CSS-селектор"
+  },
+  "thSplit": {
+    "message": "Режим разделения"
+  },
+  "btnAdd": {
+    "message": "+ Добавить место назначения"
+  },
+  "btnSave": {
+    "message": "Сохранить"
+  },
+  "msgSaved": {
+    "message": "Сохранено ✓"
+  },
+  "msgNeed": {
+    "message": "Название и шаблон URL обязательны"
+  },
+  "msgHttp": {
+    "message": "Шаблон URL должен начинаться с https:// — $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "helpSummary": {
+    "message": "Советы"
+  },
+  "helpBody": {
+    "message": "Шаблон URL используется для поиска уже открытой вкладки (например, https://editor.p5js.org/*). Если такая не найдена, открывается \"URL для открытия\".\n\nТип редактора определяет способ вставки кода: auto (рекомендуется), codemirror5, codemirror6, monaco, ace, textarea, contenteditable. \"auto\" определяет редактор автоматически, поэтому продолжает работать, даже если сайт сменит редактор (например, переход p5.js Web Editor с CodeMirror 5 на 6).\n\nРазделение файлов: если включено, единый HTML-файл, созданный, например, Gemini Canvas, разбивается на index.html / style.css / sketch.js (встроенный <style> → style.css, встроенный <script> → sketch.js, теги <script src> библиотек остаются в index.html), и каждая часть применяется к соответствующей вкладке файла в редакторе назначения."
+  },
+  "btnArtifact": {
+    "message": "Перенести"
+  },
+  "optLang": {
+    "message": "Язык"
+  },
+  "langSystem": {
+    "message": "Как в браузере"
+  },
+  "langEn": {
+    "message": "English"
+  },
+  "langJa": {
+    "message": "日本語"
+  },
+  "langZhCn": {
+    "message": "中文（简体）"
+  },
+  "langZhTw": {
+    "message": "中文（繁體）"
+  },
+  "langKo": {
+    "message": "한국어"
+  },
+  "langEs": {
+    "message": "Español"
+  },
+  "langFr": {
+    "message": "Français"
+  },
+  "langDe": {
+    "message": "Deutsch"
+  },
+  "langPtBr": {
+    "message": "Português (Brasil)"
+  },
+  "langRu": {
+    "message": "Русский"
+  },
+  "opModeNotice": {
+    "message": "p5.js Relay: для этого кода нужны дополнительные библиотеки. Переключите этот скетч в режим HTML/CSS/JS (панель SKETCH > MODE) и перенесите ещё раз."
+  },
+  "tipDrag": {
+    "message": "Перетащите для перемещения"
+  },
+  "aboutHeading": {
+    "message": "О расширении"
+  },
+  "aboutGithubDesc": {
+    "message": "Сообщайте об ошибках и предлагайте pull request'ы в репозитории на GitHub."
+  }
+}

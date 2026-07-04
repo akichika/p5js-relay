@@ -1,0 +1,200 @@
+{
+  "appName": {
+    "message": "p5.js Relay"
+  },
+  "appDesc": {
+    "message": "Claude / ChatGPT / Geminiで生成されたコードを p5.js Web Editor 等へ簡単転送。バイブコーディングなどの用途に。"
+  },
+  "ctxSend": {
+    "message": "p5.js Relay: 選択テキストを送信先へ転送"
+  },
+  "btnApply": {
+    "message": "転送"
+  },
+  "btnCanvas": {
+    "message": "転送"
+  },
+  "stSending": {
+    "message": "送信中…"
+  },
+  "stDone": {
+    "message": "✓ 転送済み"
+  },
+  "stFail": {
+    "message": "✕ 失敗"
+  },
+  "tipApply": {
+    "message": "既定の送信先エディタへワンタッチ転送 (p5.js Relay)"
+  },
+  "tipPick": {
+    "message": "送信先を選択"
+  },
+  "menuEmpty": {
+    "message": "送信先が未登録です"
+  },
+  "errNoRule": {
+    "message": "送信先が未登録です。オプションページで登録してください。"
+  },
+  "errCanvasExtract": {
+    "message": "Canvasからコードを抽出できませんでした。"
+  },
+  "errInject": {
+    "message": "注入に失敗しました"
+  },
+  "errEditorNotFound": {
+    "message": "エディタが見つかりませんでした (種別: $TYPE$, セレクタ: $SEL$)。オプションで種別を「auto」にして再試行してください。",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      },
+      "sel": {
+        "content": "$2"
+      }
+    }
+  },
+  "popDefault": {
+    "message": "既定の送信先"
+  },
+  "popLast": {
+    "message": "直近に転送したコード"
+  },
+  "popNone": {
+    "message": "(まだありません)"
+  },
+  "popResend": {
+    "message": "直近コードを再転送"
+  },
+  "popOptions": {
+    "message": "送信先の登録・編集…"
+  },
+  "popAppliedTo": {
+    "message": "✓ $TARGET$ に転送済み ($DETAIL$)",
+    "placeholders": {
+      "target": {
+        "content": "$1"
+      },
+      "detail": {
+        "content": "$2"
+      }
+    }
+  },
+  "optTagline": {
+    "message": "コードの送信先(貼り付け先)パターンをサイトごとに登録します"
+  },
+  "optClearBefore": {
+    "message": "貼り付け時に既存コードをクリアして置き換える（OFFの場合は末尾に追記）"
+  },
+  "optTheme": {
+    "message": "テーマ"
+  },
+  "themeSystem": {
+    "message": "システム"
+  },
+  "themeLight": {
+    "message": "ライト"
+  },
+  "themeDark": {
+    "message": "ダーク"
+  },
+  "thDefault": {
+    "message": "既定"
+  },
+  "thEnabled": {
+    "message": "有効"
+  },
+  "thName": {
+    "message": "名前"
+  },
+  "thUrl": {
+    "message": "URLパターン (タブ検索用)"
+  },
+  "thOpenUrl": {
+    "message": "新規タブで開くURL"
+  },
+  "thEditor": {
+    "message": "エディタ種別"
+  },
+  "thSelector": {
+    "message": "CSSセレクタ"
+  },
+  "thSplit": {
+    "message": "振り分け"
+  },
+  "btnAdd": {
+    "message": "+ 送信先を追加"
+  },
+  "btnSave": {
+    "message": "保存"
+  },
+  "msgSaved": {
+    "message": "保存しました ✓"
+  },
+  "msgNeed": {
+    "message": "名前とURLパターンは必須です"
+  },
+  "msgHttp": {
+    "message": "URLパターンは https:// で始めてください: $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "helpSummary": {
+    "message": "登録のヒント"
+  },
+  "helpBody": {
+    "message": "URLパターンは既に開いているタブを探すために使います（例: https://editor.p5js.org/*）。見つからない場合は「新規タブで開くURL」が開かれます。\n\nエディタ種別は貼り付け方法の指定です: auto（推奨・自動判別）、codemirror5、codemirror6、monaco、ace、textarea、contenteditable。auto は p5.js Web Editor の CodeMirror 5→6 移行のようなサイト側の変更にも追従します。\n\nファイル振り分け: ONにすると、Gemini Canvas等が生成した単一HTMLを index.html / style.css / sketch.js に分割し（インライン<style>→style.css、インライン<script>→sketch.js、ライブラリの<script src>はindex.htmlに残す）、送信先エディタの対応するファイルタブへそれぞれ反映します。"
+  },
+  "btnArtifact": {
+    "message": "転送"
+  },
+  "optLang": {
+    "message": "言語"
+  },
+  "langSystem": {
+    "message": "ブラウザ設定に合わせる"
+  },
+  "langEn": {
+    "message": "English"
+  },
+  "langJa": {
+    "message": "日本語"
+  },
+  "langZhCn": {
+    "message": "中文（简体）"
+  },
+  "langZhTw": {
+    "message": "中文（繁體）"
+  },
+  "langKo": {
+    "message": "한국어"
+  },
+  "langEs": {
+    "message": "Español"
+  },
+  "langFr": {
+    "message": "Français"
+  },
+  "langDe": {
+    "message": "Deutsch"
+  },
+  "langPtBr": {
+    "message": "Português (Brasil)"
+  },
+  "langRu": {
+    "message": "Русский"
+  },
+  "opModeNotice": {
+    "message": "p5.js Relay: ライブラリ設定追加のため、HTML/CSS/JSモードを選択し、再度転送してください。(SKETCHパネル > MODE で切り替えられます)"
+  },
+  "tipDrag": {
+    "message": "ドラッグで移動"
+  },
+  "aboutHeading": {
+    "message": "このアプリについて"
+  },
+  "aboutGithubDesc": {
+    "message": "不具合報告・Pull RequestはGitHubリポジトリへどうぞ。"
+  }
+}

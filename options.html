@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>p5.js Relay</title>
+<style>
+  /* p5.jsピンク基調 / ライト・ダーク・システムのテーマ切替 */
+  :root {
+    --bg: #ffffff;
+    --panel: #fbf7f8;
+    --line: #ecd6de;
+    --text: #1a1a1a;
+    --dim: #7a6b70;
+    --accent: #ed225d;      /* p5.js pink */
+    --accent-soft: #fde8ef;
+    --accent-strong: #c8154b;
+    --danger: #b91c1c;
+    --input-bg: #ffffff;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+  :root[data-theme="dark"] {
+    --bg: #141416;
+    --panel: #1d1b1d;
+    --line: #3a2c33;
+    --text: #f2f2f2;
+    --dim: #a08e96;
+    --accent: #ff4d82;
+    --accent-soft: #33222b;
+    --accent-strong: #ff6f9a;
+    --danger: #f87171;
+    --input-bg: #121013;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141416;
+      --panel: #1d1b1d;
+      --line: #3a2c33;
+      --text: #f2f2f2;
+      --dim: #a08e96;
+      --accent: #ff4d82;
+      --accent-soft: #33222b;
+      --accent-strong: #ff6f9a;
+      --danger: #f87171;
+      --input-bg: #121013;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Montserrat", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+    font-size: 14px;
+  }
+  header {
+    padding: 26px 32px 18px;
+    border-bottom: 3px solid var(--accent);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  header h1 { margin: 0; font-size: 21px; font-weight: 800; }
+  header h1 .p5 { color: var(--accent); }
+  header h1 .ast { color: var(--accent); margin-right: 2px; }
+  header p { margin: 0; color: var(--dim); font-size: 12.5px; }
+  main { max-width: 940px; margin: 0 auto; padding: 22px 32px 64px; }
+
+  .rowline {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .global, .themebox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 13px;
+  }
+  input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); cursor: pointer; }
+  .themebox .opts { display: flex; gap: 12px; }
+  .themebox label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+  .themebox .name { color: var(--dim); font-weight: 700; font-size: 12px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 10px 10px;
+    border-bottom: 2px solid var(--accent);
+  }
+  tbody td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  input[type="text"], select {
+    width: 100%;
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+  }
+  input[type="text"]:focus, select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+  }
+  .col-default, .col-enabled { width: 46px; text-align: center; }
+  .col-split { width: 92px; }
+  .col-name { width: 140px; }
+  .col-editor { width: 130px; }
+  .col-del { width: 40px; text-align: center; }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--text);
+    padding: 9px 18px;
+    font-weight: 700;
+  }
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(237, 34, 93, 0.3);
+  }
+  button.primary:hover { background: var(--accent-strong); }
+  button.del {
+    border: 0;
+    background: transparent;
+    color: var(--dim);
+    padding: 4px 8px;
+    font-size: 15px;
+    border-radius: 8px;
+  }
+  button.del:hover { color: var(--danger); }
+  .toolbar { display: flex; gap: 10px; margin-top: 16px; align-items: center; }
+  #status { color: var(--accent); font-size: 12.5px; margin-left: auto; font-weight: 700; }
+
+  details.help {
+    margin-top: 26px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.75;
+    white-space: pre-line;
+  }
+  details.help summary { cursor: pointer; color: var(--text); font-weight: 700; white-space: normal; }
+
+  .about {
+    margin-top: 26px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 13px;
+    color: var(--dim);
+  }
+  .about h2 {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .about p { margin: 0 0 10px; line-height: 1.6; }
+  .about-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 10px; }
+  .about-links a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .about-links a:hover { text-decoration: underline; }
+  .about-copy { font-size: 12px; color: var(--dim); margin: 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="ast">✳</span><span class="p5">p5.js</span> Relay</h1>
+  <p data-i18n="optTagline"></p>
+</header>
+<main>
+  <div class="rowline">
+    <label class="global">
+      <input type="checkbox" id="clearBefore" />
+      <span data-i18n="optClearBefore"></span>
+    </label>
+    <div class="themebox">
+      <span class="name" data-i18n="optTheme"></span>
+      <div class="opts">
+        <label><input type="radio" name="theme" value="system" /><span data-i18n="themeSystem"></span></label>
+        <label><input type="radio" name="theme" value="light" /><span data-i18n="themeLight"></span></label>
+        <label><input type="radio" name="theme" value="dark" /><span data-i18n="themeDark"></span></label>
+      </div>
+    </div>
+    <div class="themebox">
+      <span class="name" data-i18n="optLang"></span>
+      <select id="lang" style="width:auto;min-width:170px">
+        <option value="system" data-i18n="langSystem"></option>
+        <option value="en" data-i18n="langEn"></option>
+        <option value="ja" data-i18n="langJa"></option>
+        <option value="zh-cn" data-i18n="langZhCn"></option>
+        <option value="zh-tw" data-i18n="langZhTw"></option>
+        <option value="ko" data-i18n="langKo"></option>
+        <option value="es" data-i18n="langEs"></option>
+        <option value="fr" data-i18n="langFr"></option>
+        <option value="de" data-i18n="langDe"></option>
+        <option value="pt-br" data-i18n="langPtBr"></option>
+        <option value="ru" data-i18n="langRu"></option>
+      </select>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="col-default" data-i18n="thDefault"></th>
+        <th class="col-enabled" data-i18n="thEnabled"></th>
+        <th class="col-name" data-i18n="thName"></th>
+        <th data-i18n="thUrl"></th>
+        <th data-i18n="thOpenUrl"></th>
+        <th class="col-editor" data-i18n="thEditor"></th>
+        <th data-i18n="thSelector"></th>
+        <th class="col-split" data-i18n="thSplit"></th>
+        <th class="col-del"></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <div class="toolbar">
+    <button id="add" data-i18n="btnAdd"></button>
+    <button id="save" class="primary" data-i18n="btnSave"></button>
+    <span id="status"></span>
+  </div>
+
+  <details class="help">
+    <summary data-i18n="helpSummary"></summary>
+    <div data-i18n="helpBody"></div>
+  </details>
+
+  <section class="about">
+    <h2 data-i18n="aboutHeading"></h2>
+    <p data-i18n="aboutGithubDesc"></p>
+    <div class="about-links">
+      <a href="https://github.com/akichika/p5js-relay" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/akichika/p5js-relay/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+      <a href="https://github.com/akichika/p5js-relay/pulls" target="_blank" rel="noopener noreferrer">Pull Requests</a>
+      <a href="https://x.com/akichika" target="_blank" rel="noopener noreferrer">X (@akichika)</a>
+    </div>
+    <p class="about-copy">p5.js Relay v2.5.0 · © 2026 akichika · MIT License</p>
+  </section>
+</main>
+<script src="i18n.js"></script>
+<script src="theme.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

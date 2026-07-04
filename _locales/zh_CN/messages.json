@@ -1,0 +1,200 @@
+{
+  "appName": {
+    "message": "p5.js Relay"
+  },
+  "appDesc": {
+    "message": "一键将 Claude、ChatGPT 或 Gemini 生成的代码转发到 p5.js Web Editor 等在线编辑器，适合 vibe coding 等场景。"
+  },
+  "ctxSend": {
+    "message": "p5.js Relay：将选中内容转发到目标编辑器"
+  },
+  "btnApply": {
+    "message": "转发"
+  },
+  "btnCanvas": {
+    "message": "转发"
+  },
+  "stSending": {
+    "message": "发送中…"
+  },
+  "stDone": {
+    "message": "✓ 已转发"
+  },
+  "stFail": {
+    "message": "✕ 失败"
+  },
+  "tipApply": {
+    "message": "转发到默认目标编辑器 (p5.js Relay)"
+  },
+  "tipPick": {
+    "message": "选择目标"
+  },
+  "menuEmpty": {
+    "message": "尚未注册任何目标"
+  },
+  "errNoRule": {
+    "message": "尚未注册目标编辑器，请在选项页面添加。"
+  },
+  "errCanvasExtract": {
+    "message": "无法从 Canvas 面板提取代码。"
+  },
+  "errInject": {
+    "message": "注入失败"
+  },
+  "errEditorNotFound": {
+    "message": "未找到编辑器（类型：$TYPE$，选择器：$SEL$）。请在选项中将类型设为“auto”后重试。",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      },
+      "sel": {
+        "content": "$2"
+      }
+    }
+  },
+  "popDefault": {
+    "message": "默认目标"
+  },
+  "popLast": {
+    "message": "最近转发的代码"
+  },
+  "popNone": {
+    "message": "（暂无）"
+  },
+  "popResend": {
+    "message": "重新发送最近的代码"
+  },
+  "popOptions": {
+    "message": "管理目标…"
+  },
+  "popAppliedTo": {
+    "message": "✓ 已转发到 $TARGET$（$DETAIL$）",
+    "placeholders": {
+      "target": {
+        "content": "$1"
+      },
+      "detail": {
+        "content": "$2"
+      }
+    }
+  },
+  "optTagline": {
+    "message": "按站点注册代码的粘贴目标"
+  },
+  "optClearBefore": {
+    "message": "转发时替换已有代码（关闭则追加到末尾）"
+  },
+  "optTheme": {
+    "message": "主题"
+  },
+  "themeSystem": {
+    "message": "跟随系统"
+  },
+  "themeLight": {
+    "message": "浅色"
+  },
+  "themeDark": {
+    "message": "深色"
+  },
+  "thDefault": {
+    "message": "默认"
+  },
+  "thEnabled": {
+    "message": "启用"
+  },
+  "thName": {
+    "message": "名称"
+  },
+  "thUrl": {
+    "message": "URL 模式（用于查找标签页）"
+  },
+  "thOpenUrl": {
+    "message": "要打开的 URL"
+  },
+  "thEditor": {
+    "message": "编辑器类型"
+  },
+  "thSelector": {
+    "message": "CSS 选择器"
+  },
+  "thSplit": {
+    "message": "拆分模式"
+  },
+  "btnAdd": {
+    "message": "+ 添加目标"
+  },
+  "btnSave": {
+    "message": "保存"
+  },
+  "msgSaved": {
+    "message": "已保存 ✓"
+  },
+  "msgNeed": {
+    "message": "名称和 URL 模式为必填项"
+  },
+  "msgHttp": {
+    "message": "URL 模式必须以 https:// 开头 — $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "helpSummary": {
+    "message": "使用提示"
+  },
+  "helpBody": {
+    "message": "URL 模式用于查找已经打开的标签页（例如 https://editor.p5js.org/*）。如果找不到，则会打开“要打开的 URL”。\n\n编辑器类型决定代码的粘贴方式：auto（推荐）、codemirror5、codemirror6、monaco、ace、textarea、contenteditable。“auto”会自动检测编辑器类型，因此即使站点更换了编辑器（例如 p5.js Web Editor 从 CodeMirror 5 迁移到 6）也能继续工作。\n\n文件拆分：开启后，会将 Gemini Canvas 等生成的单个 HTML 文件拆分为 index.html / style.css / sketch.js（内联 <style> → style.css，内联 <script> → sketch.js，库的 <script src> 标签保留在 index.html 中），并分别应用到目标编辑器对应的文件标签页。"
+  },
+  "btnArtifact": {
+    "message": "转发"
+  },
+  "optLang": {
+    "message": "语言"
+  },
+  "langSystem": {
+    "message": "跟随浏览器"
+  },
+  "langEn": {
+    "message": "English"
+  },
+  "langJa": {
+    "message": "日本語"
+  },
+  "langZhCn": {
+    "message": "中文（简体）"
+  },
+  "langZhTw": {
+    "message": "中文（繁體）"
+  },
+  "langKo": {
+    "message": "한국어"
+  },
+  "langEs": {
+    "message": "Español"
+  },
+  "langFr": {
+    "message": "Français"
+  },
+  "langDe": {
+    "message": "Deutsch"
+  },
+  "langPtBr": {
+    "message": "Português (Brasil)"
+  },
+  "langRu": {
+    "message": "Русский"
+  },
+  "opModeNotice": {
+    "message": "p5.js Relay：此代码需要额外的库，请先将该作品切换到 HTML/CSS/JS 模式（SKETCH 面板 > MODE），然后重新转发。"
+  },
+  "tipDrag": {
+    "message": "拖动以移动"
+  },
+  "aboutHeading": {
+    "message": "关于"
+  },
+  "aboutGithubDesc": {
+    "message": "如需反馈问题或提交 Pull Request，请前往 GitHub 仓库。"
+  }
+}

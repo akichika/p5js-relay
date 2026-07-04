@@ -1,0 +1,200 @@
+{
+  "appName": {
+    "message": "p5.js Relay"
+  },
+  "appDesc": {
+    "message": "Claude / ChatGPT / Gemini로 생성한 코드를 p5.js Web Editor 등으로 간편하게 전송합니다. 바이브 코딩 등에 활용하세요."
+  },
+  "ctxSend": {
+    "message": "p5.js Relay: 선택한 텍스트를 대상으로 전송"
+  },
+  "btnApply": {
+    "message": "전송"
+  },
+  "btnCanvas": {
+    "message": "전송"
+  },
+  "stSending": {
+    "message": "전송 중…"
+  },
+  "stDone": {
+    "message": "✓ 전송 완료"
+  },
+  "stFail": {
+    "message": "✕ 실패"
+  },
+  "tipApply": {
+    "message": "기본 대상 에디터로 원터치 전송 (p5.js Relay)"
+  },
+  "tipPick": {
+    "message": "대상 선택"
+  },
+  "menuEmpty": {
+    "message": "등록된 대상이 없습니다"
+  },
+  "errNoRule": {
+    "message": "등록된 대상이 없습니다. 옵션 페이지에서 추가해 주세요."
+  },
+  "errCanvasExtract": {
+    "message": "Canvas 패널에서 코드를 추출할 수 없습니다."
+  },
+  "errInject": {
+    "message": "삽입에 실패했습니다"
+  },
+  "errEditorNotFound": {
+    "message": "에디터를 찾을 수 없습니다 (유형: $TYPE$, 선택자: $SEL$). 옵션에서 유형을 \"auto\"로 설정한 뒤 다시 시도하세요.",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      },
+      "sel": {
+        "content": "$2"
+      }
+    }
+  },
+  "popDefault": {
+    "message": "기본 대상"
+  },
+  "popLast": {
+    "message": "최근 전송한 코드"
+  },
+  "popNone": {
+    "message": "(아직 없음)"
+  },
+  "popResend": {
+    "message": "최근 코드 다시 보내기"
+  },
+  "popOptions": {
+    "message": "대상 관리…"
+  },
+  "popAppliedTo": {
+    "message": "✓ $TARGET$에 전송됨 ($DETAIL$)",
+    "placeholders": {
+      "target": {
+        "content": "$1"
+      },
+      "detail": {
+        "content": "$2"
+      }
+    }
+  },
+  "optTagline": {
+    "message": "사이트별로 코드 붙여넣기 대상을 등록합니다"
+  },
+  "optClearBefore": {
+    "message": "적용 시 기존 코드를 교체 (끄면 끝에 추가)"
+  },
+  "optTheme": {
+    "message": "테마"
+  },
+  "themeSystem": {
+    "message": "시스템"
+  },
+  "themeLight": {
+    "message": "라이트"
+  },
+  "themeDark": {
+    "message": "다크"
+  },
+  "thDefault": {
+    "message": "기본값"
+  },
+  "thEnabled": {
+    "message": "사용"
+  },
+  "thName": {
+    "message": "이름"
+  },
+  "thUrl": {
+    "message": "URL 패턴 (탭 검색용)"
+  },
+  "thOpenUrl": {
+    "message": "열 URL"
+  },
+  "thEditor": {
+    "message": "에디터 유형"
+  },
+  "thSelector": {
+    "message": "CSS 선택자"
+  },
+  "thSplit": {
+    "message": "분할 모드"
+  },
+  "btnAdd": {
+    "message": "+ 대상 추가"
+  },
+  "btnSave": {
+    "message": "저장"
+  },
+  "msgSaved": {
+    "message": "저장됨 ✓"
+  },
+  "msgNeed": {
+    "message": "이름과 URL 패턴은 필수입니다"
+  },
+  "msgHttp": {
+    "message": "URL 패턴은 https://로 시작해야 합니다 — $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "helpSummary": {
+    "message": "도움말"
+  },
+  "helpBody": {
+    "message": "URL 패턴은 이미 열려 있는 탭을 찾는 데 사용됩니다 (예: https://editor.p5js.org/*). 찾지 못하면 \"열 URL\"이 열립니다.\n\n에디터 유형은 코드를 붙여넣는 방식을 결정합니다: auto(권장), codemirror5, codemirror6, monaco, ace, textarea, contenteditable. \"auto\"는 에디터를 자동으로 감지하므로 사이트가 에디터를 변경해도(예: p5.js Web Editor의 CodeMirror 5→6 전환) 계속 작동합니다.\n\n파일 분할: 켜면 Gemini Canvas 등이 생성한 단일 HTML 파일을 index.html / style.css / sketch.js로 분할하여(인라인 <style> → style.css, 인라인 <script> → sketch.js, 라이브러리 <script src> 태그는 index.html에 유지) 대상 에디터의 해당 파일 탭에 각각 적용합니다."
+  },
+  "btnArtifact": {
+    "message": "전송"
+  },
+  "optLang": {
+    "message": "언어"
+  },
+  "langSystem": {
+    "message": "브라우저 설정 따르기"
+  },
+  "langEn": {
+    "message": "English"
+  },
+  "langJa": {
+    "message": "日本語"
+  },
+  "langZhCn": {
+    "message": "中文（简体）"
+  },
+  "langZhTw": {
+    "message": "中文（繁體）"
+  },
+  "langKo": {
+    "message": "한국어"
+  },
+  "langEs": {
+    "message": "Español"
+  },
+  "langFr": {
+    "message": "Français"
+  },
+  "langDe": {
+    "message": "Deutsch"
+  },
+  "langPtBr": {
+    "message": "Português (Brasil)"
+  },
+  "langRu": {
+    "message": "Русский"
+  },
+  "opModeNotice": {
+    "message": "p5.js Relay: 이 코드는 추가 라이브러리가 필요합니다. 이 스케치를 HTML/CSS/JS 모드로 전환한 뒤(SKETCH 패널 > MODE) 다시 전송해 주세요."
+  },
+  "tipDrag": {
+    "message": "드래그하여 이동"
+  },
+  "aboutHeading": {
+    "message": "정보"
+  },
+  "aboutGithubDesc": {
+    "message": "버그 제보나 Pull Request는 GitHub 저장소에서 받습니다."
+  }
+}

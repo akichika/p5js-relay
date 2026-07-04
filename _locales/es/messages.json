@@ -1,0 +1,200 @@
+{
+  "appName": {
+    "message": "p5.js Relay"
+  },
+  "appDesc": {
+    "message": "Transfiere con un toque el código generado por Claude, ChatGPT o Gemini al p5.js Web Editor y más. Ideal para el vibe coding."
+  },
+  "ctxSend": {
+    "message": "p5.js Relay: transferir la selección al destino"
+  },
+  "btnApply": {
+    "message": "Transferir"
+  },
+  "btnCanvas": {
+    "message": "Transferir"
+  },
+  "stSending": {
+    "message": "Enviando…"
+  },
+  "stDone": {
+    "message": "✓ Transferido"
+  },
+  "stFail": {
+    "message": "✕ Error"
+  },
+  "tipApply": {
+    "message": "Transferir al editor de destino predeterminado (p5.js Relay)"
+  },
+  "tipPick": {
+    "message": "Elegir destino"
+  },
+  "menuEmpty": {
+    "message": "No hay destinos registrados"
+  },
+  "errNoRule": {
+    "message": "No hay ningún destino registrado. Añade uno en la página de opciones."
+  },
+  "errCanvasExtract": {
+    "message": "No se pudo extraer el código del panel Canvas."
+  },
+  "errInject": {
+    "message": "Error al insertar el código"
+  },
+  "errEditorNotFound": {
+    "message": "No se encontró el editor (tipo: $TYPE$, selector: $SEL$). Prueba a poner el tipo en \"auto\" en las opciones.",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      },
+      "sel": {
+        "content": "$2"
+      }
+    }
+  },
+  "popDefault": {
+    "message": "Destino predeterminado"
+  },
+  "popLast": {
+    "message": "Último código transferido"
+  },
+  "popNone": {
+    "message": "(nada todavía)"
+  },
+  "popResend": {
+    "message": "Reenviar el último código"
+  },
+  "popOptions": {
+    "message": "Gestionar destinos…"
+  },
+  "popAppliedTo": {
+    "message": "✓ Transferido a $TARGET$ ($DETAIL$)",
+    "placeholders": {
+      "target": {
+        "content": "$1"
+      },
+      "detail": {
+        "content": "$2"
+      }
+    }
+  },
+  "optTagline": {
+    "message": "Registra los destinos de pegado por sitio"
+  },
+  "optClearBefore": {
+    "message": "Reemplazar el código existente al transferir (si está desactivado, se añade al final)"
+  },
+  "optTheme": {
+    "message": "Tema"
+  },
+  "themeSystem": {
+    "message": "Sistema"
+  },
+  "themeLight": {
+    "message": "Claro"
+  },
+  "themeDark": {
+    "message": "Oscuro"
+  },
+  "thDefault": {
+    "message": "Predeterminado"
+  },
+  "thEnabled": {
+    "message": "Activo"
+  },
+  "thName": {
+    "message": "Nombre"
+  },
+  "thUrl": {
+    "message": "Patrón de URL (para localizar la pestaña)"
+  },
+  "thOpenUrl": {
+    "message": "URL a abrir"
+  },
+  "thEditor": {
+    "message": "Tipo de editor"
+  },
+  "thSelector": {
+    "message": "Selector CSS"
+  },
+  "thSplit": {
+    "message": "Modo de división"
+  },
+  "btnAdd": {
+    "message": "+ Añadir destino"
+  },
+  "btnSave": {
+    "message": "Guardar"
+  },
+  "msgSaved": {
+    "message": "Guardado ✓"
+  },
+  "msgNeed": {
+    "message": "El nombre y el patrón de URL son obligatorios"
+  },
+  "msgHttp": {
+    "message": "El patrón de URL debe empezar por https:// — $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "helpSummary": {
+    "message": "Consejos"
+  },
+  "helpBody": {
+    "message": "El patrón de URL se usa para localizar una pestaña ya abierta (p. ej. https://editor.p5js.org/*). Si no se encuentra ninguna, se abrirá la \"URL a abrir\".\n\nEl tipo de editor determina cómo se pega el código: auto (recomendado), codemirror5, codemirror6, monaco, ace, textarea, contenteditable. \"auto\" detecta el editor automáticamente, por lo que sigue funcionando aunque el sitio cambie de editor (como la migración de CodeMirror 5 a 6 del p5.js Web Editor).\n\nDividir archivos: si está activado, un único archivo HTML generado por Gemini Canvas u otros se divide en index.html / style.css / sketch.js (el <style> interno pasa a style.css, el <script> interno pasa a sketch.js, y las etiquetas <script src> de librerías permanecen en index.html), aplicando cada parte a la pestaña correspondiente del editor de destino."
+  },
+  "btnArtifact": {
+    "message": "Transferir"
+  },
+  "optLang": {
+    "message": "Idioma"
+  },
+  "langSystem": {
+    "message": "Igual que el navegador"
+  },
+  "langEn": {
+    "message": "English"
+  },
+  "langJa": {
+    "message": "日本語"
+  },
+  "langZhCn": {
+    "message": "中文（简体）"
+  },
+  "langZhTw": {
+    "message": "中文（繁體）"
+  },
+  "langKo": {
+    "message": "한국어"
+  },
+  "langEs": {
+    "message": "Español"
+  },
+  "langFr": {
+    "message": "Français"
+  },
+  "langDe": {
+    "message": "Deutsch"
+  },
+  "langPtBr": {
+    "message": "Português (Brasil)"
+  },
+  "langRu": {
+    "message": "Русский"
+  },
+  "opModeNotice": {
+    "message": "p5.js Relay: este código necesita librerías adicionales. Cambia este sketch al modo HTML/CSS/JS (panel SKETCH > MODE) y vuelve a transferirlo."
+  },
+  "tipDrag": {
+    "message": "Arrastra para mover"
+  },
+  "aboutHeading": {
+    "message": "Acerca de"
+  },
+  "aboutGithubDesc": {
+    "message": "Informa de errores o envía pull requests en el repositorio de GitHub."
+  }
+}

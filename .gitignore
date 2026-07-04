@@ -1,0 +1,18 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Build artifacts (store upload zips are built, not committed)
+*.zip
+/dist/
+
+# Node (if tests/tooling get added later)
+node_modules/
+npm-debug.log*
+
+# Local scratch
+/tmp/
