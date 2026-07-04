@@ -350,12 +350,23 @@ function waitForTabLoad(tabId) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function extractFromTab(tabId) {
-  const [res] = await chrome.scripting.executeScript({
-    target: { tabId },
+  // claude.aiのArtifactは、プレビューだけでなくコード表示も
+  // a.claude.ai等の別オリジンiframe内でレンダリングされる(2026年時点)。
+  // メインフレームだけを見ても何も取れないため、allFrames:trueで
+  // 全フレーム(クロスオリジンiframe含む)を対象に実行し、最も長い
+  // 結果を採用する。host_permissions:<all_urls>によりiframeの
+  // オリジンを問わず注入できる。
+  const results = await chrome.scripting.executeScript({
+    target: { tabId, allFrames: true },
     world: "MAIN",
     func: extractCanvasCodeInPage
   });
-  return res && res.result;
+  let best = "";
+  for (const r of results) {
+    const val = r && r.result;
+    if (typeof val === "string" && val.length > best.length) best = val;
+  }
+  return best;
 }
 
 // ---- コード分割 (SWにはDOMParserが無いため正規表現ベース) ----

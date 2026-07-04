@@ -3,6 +3,16 @@
 このプロジェクトのバージョンは [Semantic Versioning](https://semver.org/lang/ja/) に
 概ね従っています。詳細な技術的経緯は `HANDOFF.md` の第6章も参照してください。
 
+## [2.5.2] - 2026-07-04
+### Fixed
+- claude.aiのArtifactからの転送が常に失敗する不具合を修正。原因は
+  ClaudeがArtifactパネル(プレビューだけでなくコード表示も)を
+  `a.claude.ai`等の別オリジンiframe内でレンダリングするようになった
+  ことで、`extractFromTab()`がメインフレームしか対象にしておらず
+  何も取得できていなかった。`chrome.scripting.executeScript`の
+  `allFrames: true`で全フレーム(クロスオリジンiframe含む)を対象に
+  実行し、最も長い抽出結果を採用するように変更
+
 ## [2.5.1] - 2026-07-04
 ### Fixed
 - ChatGPTで転送ボタンが2個表示される不具合を修正。原因はChatGPTがコード
