@@ -335,10 +335,23 @@
     }, 0);
   }
 
+  // 入れ子になったpre(別のpreの内側にあるpre)か判定。
+  // ChatGPTはコードブロックをCodeMirrorビューアで描画するようになり、
+  // 外側のpre(markdown)の中にpre.cm-contentが入る二重構造になった。
+  // 両方にボタンを付けると2個表示になるため、外側のpreだけを設置先にする。
+  function isNestedPre(el) {
+    return (
+      el.tagName === "PRE" &&
+      el.parentElement &&
+      !!el.parentElement.closest("pre")
+    );
+  }
+
   // 全ボタンの整合チェック:
   // - 複製(LIVEでない偽物)は除去
   // - 本物でも、Reactの再構成で設置先(host)の外へ移動させられたものは除去
   //   (設置先側のスキャンで正しい位置に再付与される)
+  // - 本物でも、設置先が入れ子preなら除去(外側preのボタンに一本化)
   function globalCleanup() {
     document.querySelectorAll("." + BTN_CLASS).forEach((w) => {
       if (!LIVE.has(w)) {
@@ -346,7 +359,11 @@
         return;
       }
       const host = WRAP_HOST.get(w);
-      if (!host || !host.isConnected || !host.contains(w)) w.remove();
+      if (!host || !host.isConnected || !host.contains(w)) {
+        w.remove();
+        return;
+      }
+      if (isNestedPre(host)) w.remove();
     });
   }
 
@@ -366,6 +383,7 @@
 
   // ---- チャット内コードブロック ----
   function attachButton(pre) {
+    if (isNestedPre(pre)) return; // 入れ子pre(ChatGPTのCMビューア内部)はスキップ
     if (cleanClones(pre)) return; // 本物が既に居るなら何もしない
     if (extractCode(pre).trim().length < 8) return;
     pre.dataset.coderelay = "1";
