@@ -4,23 +4,28 @@
 すぐに作業を再開できるようにするための技術メモです。会話ベースで反復開発してきた
 経緯を踏まえ、**なぜ今の実装になっているか**を優先して記録しています。
 
-現在バージョン: **v2.4.3**
+現在バージョン: **v2.5.0**（v2.4.3までの経緯は本文中に残す。v2.5.0時点の
+変更点は末尾の「8. v2.5.0での変更点」を参照）
 
 ---
 
 ## 1. プロダクト概要
 
 **p5.js Relay** は、Claude / ChatGPT / Gemini（Canvasモード） で生成されたコードを、
-p5.js Web Editor などのオンラインコードエディタへワンタッチで転送する Chrome 拡張
-（Manifest V3）です。
+p5.js Web Editor などのオンラインコードエディタへワンタッチで転送する Chrome /
+Microsoft Edge 拡張（Manifest V3）です。
 
 - 単一HTMLで生成されたコードを **HTML / CSS / JS に自動分割**し、送信先エディタの
   構造（タブ切替式 / パネル分割式）に合わせて書き分ける
 - p5.js標準以外の外部ライブラリ（CDN の `<script src>`）やフォント等の `<link>` を検出し、
   送信先の index.html に**壊さずに差し込む**
-- ライト/ダーク/システムテーマ、日本語/英語UI（ブラウザ言語に自動追従、非対応言語は英語）
+- ライト/ダーク/システムテーマ、10言語UI(英語・日本語・中国語簡体字/繁体字・韓国語・
+  スペイン語・フランス語・ドイツ語・ポルトガル語ブラジル・ロシア語。ブラウザ言語に
+  自動追従、非対応言語は英語)
 - 転送ボタンはコードブロック / Canvas パネル / Artifact パネルに1個だけ表示され、
   ドラッグで移動できる（リロードでリセット）
+- オプションページにAboutセクション（GitHubリポジトリ・Issue・PRリンク、
+  Xアカウント、著作権表示）
 
 ## 2. ファイル構成と役割
 
@@ -33,14 +38,15 @@ content/source.js   送信元(AIチャット)のcontent script。ボタン生成
 content/source.css  ボタンの見た目(p5.jsピンク基調、長方形+左端グリップ)
 options.html/js     送信先ルールの登録UI
 popup.html/js       ツールバーポップアップ(既定送信先・直近コード再送)
-_locales/en,ja      i18n辞書(表示文言の実体。i18n.jsがfetchして読む)
+_locales/en,ja,...  i18n辞書(表示文言の実体。10言語。i18n.jsがfetchして読む)
 icons/icon.svg      アイコン原本(SVG)。ここからPNG(16/48/128)を都度生成している
 ```
 
 **重要**: `_locales/` は Chrome 標準の i18n 機構用（manifest名などに使用）だが、
 UI文言のランタイム切替は `i18n.js` が同じ `_locales/*/messages.json` を
 `fetch()` して自前で行っている。**メッセージを追加/変更する場合は
-`_locales/en/messages.json` と `_locales/ja/messages.json` の両方を更新すること**。
+`_locales/en, ja, zh_CN, zh_TW, ko, es, fr, de, pt_BR, ru` の10ファイル
+すべてを更新すること**（詳細は`CONTRIBUTING.md`参照）。
 
 ## 3. background.js の構造(最重要)
 
