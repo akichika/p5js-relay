@@ -576,6 +576,23 @@ async function extractCanvasCodeInPage() {
         .join("");
       if (joined.trim()) candidates.push(joined);
     }
+    // Last resort fallback (only runs when nothing else matched; leaf
+    // elements with a monospace font and a decent amount of text). This
+    // exists so that if all known site-specific selectors above stop
+    // working after a future Claude/ChatGPT/Gemini UI change, the
+    // extension still has a chance at grabbing something useful instead
+    // of failing outright.
+    if (!candidates.length) {
+      let generic = "";
+      for (const el of deepQueryAll("body *")) {
+        if (el.children.length > 0) continue; // leaf nodes only
+        const txt = el.innerText;
+        if (!txt || txt.length < 60) continue;
+        if (!/mono/i.test(getComputedStyle(el).fontFamily)) continue;
+        if (txt.length > generic.length) generic = txt;
+      }
+      if (generic) candidates.push(generic);
+    }
     if (!candidates.length) return "";
     candidates.sort((a, b) => b.length - a.length);
     return candidates[0].replace(/\u00a0/g, " ");
@@ -625,7 +642,7 @@ async function extractCanvasCodeInPage() {
   // claude.aiの現行UIはプレビュー/コード切替が role="radio"
   // (role="radiogroup"の中、aria-label="コード"/"Code")で実装されている
   // (button/role=tabではない。実DOM調査で確認済み)。
-  const togglePat = /code|コード|source|ソース/i;
+  const togglePat = /code|コード|source|ソース|raw/i;
   const buttons = deepQueryAll(
     "button, [role='tab'], [role='button'], [role='radio']"
   );

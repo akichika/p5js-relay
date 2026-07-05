@@ -36,13 +36,13 @@
     "message": "No destination registered. Please add one on the options page."
   },
   "errCanvasExtract": {
-    "message": "Could not extract code from the Canvas panel."
+    "message": "Could not extract code from the Canvas panel. If this keeps happening after a site update, please report it at github.com/akichika/p5js-relay/issues"
   },
   "errInject": {
     "message": "Injection failed"
   },
   "errEditorNotFound": {
-    "message": "Editor not found (type: $TYPE$, selector: $SEL$). Try setting the type to \"auto\" in options.",
+    "message": "Editor not found (type: $TYPE$, selector: $SEL$). Try setting the type to \"auto\" in options. If this keeps happening after a site update, please report it at github.com/akichika/p5js-relay/issues",
     "placeholders": {
       "type": {
         "content": "$1"

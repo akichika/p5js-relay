@@ -36,13 +36,13 @@
     "message": "送信先が未登録です。オプションページで登録してください。"
   },
   "errCanvasExtract": {
-    "message": "Canvasからコードを抽出できませんでした。"
+    "message": "Canvasからコードを抽出できませんでした。サイト側の更新で継続的に失敗する場合は github.com/akichika/p5js-relay/issues までご報告ください。"
   },
   "errInject": {
     "message": "注入に失敗しました"
   },
   "errEditorNotFound": {
-    "message": "エディタが見つかりませんでした (種別: $TYPE$, セレクタ: $SEL$)。オプションで種別を「auto」にして再試行してください。",
+    "message": "エディタが見つかりませんでした (種別: $TYPE$, セレクタ: $SEL$)。オプションで種別を「auto」にして再試行してください。サイト側の更新で継続的に失敗する場合は github.com/akichika/p5js-relay/issues までご報告ください。",
     "placeholders": {
       "type": {
         "content": "$1"

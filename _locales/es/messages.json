@@ -36,13 +36,13 @@
     "message": "No hay ningún destino registrado. Añade uno en la página de opciones."
   },
   "errCanvasExtract": {
-    "message": "No se pudo extraer el código del panel Canvas."
+    "message": "No se pudo extraer el código del panel Canvas. Si esto sigue ocurriendo tras una actualización del sitio, informalo en github.com/akichika/p5js-relay/issues"
   },
   "errInject": {
     "message": "Error al insertar el código"
   },
   "errEditorNotFound": {
-    "message": "No se encontró el editor (tipo: $TYPE$, selector: $SEL$). Prueba a poner el tipo en \"auto\" en las opciones.",
+    "message": "No se encontró el editor (tipo: $TYPE$, selector: $SEL$). Prueba a poner el tipo en \"auto\" en las opciones. Si esto sigue ocurriendo tras una actualización del sitio, informalo en github.com/akichika/p5js-relay/issues",
     "placeholders": {
       "type": {
         "content": "$1"

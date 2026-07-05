@@ -36,13 +36,13 @@
     "message": "尚未注册目标编辑器，请在选项页面添加。"
   },
   "errCanvasExtract": {
-    "message": "无法从 Canvas 面板提取代码。"
+    "message": "无法从 Canvas 面板提取代码。如果网站更新后持续出现此问题，请前往 github.com/akichika/p5js-relay/issues 反馈。"
   },
   "errInject": {
     "message": "注入失败"
   },
   "errEditorNotFound": {
-    "message": "未找到编辑器（类型：$TYPE$，选择器：$SEL$）。请在选项中将类型设为“auto”后重试。",
+    "message": "未找到编辑器（类型：$TYPE$，选择器：$SEL$）。请在选项中将类型设为“auto”后重试。如果网站更新后持续出现此问题，请前往 github.com/akichika/p5js-relay/issues 反馈。",
     "placeholders": {
       "type": {
         "content": "$1"

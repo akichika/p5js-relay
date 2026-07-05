@@ -36,13 +36,13 @@
     "message": "Aucune destination enregistrée. Ajoutez-en une dans la page d'options."
   },
   "errCanvasExtract": {
-    "message": "Impossible d'extraire le code du panneau Canvas."
+    "message": "Impossible d'extraire le code du panneau Canvas. Si cela persiste après une mise à jour du site, merci de le signaler sur github.com/akichika/p5js-relay/issues"
   },
   "errInject": {
     "message": "Échec de l'insertion"
   },
   "errEditorNotFound": {
-    "message": "Éditeur introuvable (type : $TYPE$, sélecteur : $SEL$). Essayez de mettre le type sur « auto » dans les options.",
+    "message": "Éditeur introuvable (type : $TYPE$, sélecteur : $SEL$). Essayez de mettre le type sur « auto » dans les options. Si cela persiste après une mise à jour du site, merci de le signaler sur github.com/akichika/p5js-relay/issues",
     "placeholders": {
       "type": {
         "content": "$1"

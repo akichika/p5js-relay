@@ -36,13 +36,13 @@
     "message": "등록된 대상이 없습니다. 옵션 페이지에서 추가해 주세요."
   },
   "errCanvasExtract": {
-    "message": "Canvas 패널에서 코드를 추출할 수 없습니다."
+    "message": "Canvas 패널에서 코드를 추출할 수 없습니다. 사이트 업데이트 이후 계속 발생하면 github.com/akichika/p5js-relay/issues 에 신고해 주세요."
   },
   "errInject": {
     "message": "삽입에 실패했습니다"
   },
   "errEditorNotFound": {
-    "message": "에디터를 찾을 수 없습니다 (유형: $TYPE$, 선택자: $SEL$). 옵션에서 유형을 \"auto\"로 설정한 뒤 다시 시도하세요.",
+    "message": "에디터를 찾을 수 없습니다 (유형: $TYPE$, 선택자: $SEL$). 옵션에서 유형을 \"auto\"로 설정한 뒤 다시 시도하세요. 사이트 업데이트 이후 계속 발생하면 github.com/akichika/p5js-relay/issues 에 신고해 주세요.",
     "placeholders": {
       "type": {
         "content": "$1"

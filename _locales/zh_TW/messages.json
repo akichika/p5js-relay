@@ -36,13 +36,13 @@
     "message": "尚未註冊目標編輯器，請在選項頁面新增。"
   },
   "errCanvasExtract": {
-    "message": "無法從 Canvas 面板擷取程式碼。"
+    "message": "無法從 Canvas 面板擷取程式碼。如果網站更新後持續發生此問題，請前往 github.com/akichika/p5js-relay/issues 回報。"
   },
   "errInject": {
     "message": "注入失敗"
   },
   "errEditorNotFound": {
-    "message": "找不到編輯器（類型：$TYPE$，選擇器：$SEL$）。請在選項中將類型設為「auto」後再試一次。",
+    "message": "找不到編輯器（類型：$TYPE$，選擇器：$SEL$）。請在選項中將類型設為「auto」後再試一次。如果網站更新後持續發生此問題，請前往 github.com/akichika/p5js-relay/issues 回報。",
     "placeholders": {
       "type": {
         "content": "$1"

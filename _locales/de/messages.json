@@ -36,13 +36,13 @@
     "message": "Kein Ziel registriert. Bitte auf der Optionsseite eines hinzufügen."
   },
   "errCanvasExtract": {
-    "message": "Code konnte nicht aus dem Canvas-Panel extrahiert werden."
+    "message": "Code konnte nicht aus dem Canvas-Panel extrahiert werden. Falls dies nach einem Website-Update weiterhin auftritt, melden Sie es bitte unter github.com/akichika/p5js-relay/issues"
   },
   "errInject": {
     "message": "Einfügen fehlgeschlagen"
   },
   "errEditorNotFound": {
-    "message": "Editor nicht gefunden (Typ: $TYPE$, Selektor: $SEL$). Versuchen Sie, den Typ in den Optionen auf \"auto\" zu setzen.",
+    "message": "Editor nicht gefunden (Typ: $TYPE$, Selektor: $SEL$). Versuchen Sie, den Typ in den Optionen auf \"auto\" zu setzen. Falls dies nach einem Website-Update weiterhin auftritt, melden Sie es bitte unter github.com/akichika/p5js-relay/issues",
     "placeholders": {
       "type": {
         "content": "$1"
