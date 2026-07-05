@@ -233,6 +233,41 @@ Artifactパネルを**プレビューだけでなくコード表示も** `a.clau
 だが、「最も長い結果を採用」というヒューリスティックが誤ったフレーム
 (無関係な広告iframe等)を拾わないか、報告が来たら確認すること。
 
+**v2.5.3追記 — 本当の原因は role="radio" と独自コードレンダラー**:
+v2.5.2のallFrames対応後も実機で失敗が続いた。claude.aiの実タブに対して
+`chrome.scripting`を使わず素のJS(`document.elementsFromPoint`等)で
+直接調査したところ、以下2点が本当の原因だった(iframe化はプレビュー用の
+別問題として実在するが、失敗の直接原因ではなかった):
+
+1. プレビュー/コード表示の切替は `role="radiogroup"`
+   (`aria-label="ファイルビューモード"`)の中の `role="radio"`
+   (`aria-label="コード"` / "プレビュー")として実装されていた。
+   トグル候補の検索セレクタが`button, [role='tab'], [role='button']`
+   のみで`[role='radio']`を含んでいなかったため、トグルが一度も
+   見つからずクリックされていなかった。
+2. コード表示自体もCodeMirror/Monaco/`<pre>`のいずれでもなく、
+   1行=1要素(class名に`group/line`を含む独自レンダラー)で描画されており、
+   各行要素の**最後の子要素**(先頭2つは行番号・折りたたみガター用の
+   `select-none`なspan)がその行のコード本体だった。
+
+対策: トグル検出セレクタに`[role='radio']`を追加し、`collect()`に
+`.group\/line`要素からの抽出方式を追加(他の方式が見つからない場合の
+最終手段として一番後ろに追加)。
+
+**デバッグ手法の教訓**: `chrome.scripting.executeScript`で注入した
+関数内の`console.info`は、拡張のService Worker側から
+`chrome.scripting`経由で見ようとしても(あるいは外部のブラウザ操作
+ツールから見ようとしても)ページのコンソールに出ているはずなのに
+見えない/追いにくいことがある。確実なのは **戻り値に診断情報
+(trace配列)を積んで呼び出し元に返し、それをService Worker側の
+`console.info`やエラーメッセージ経由で確認する**方法。
+`extractCanvasCodeInPage`は現在`{code, trace}`を返す形になっており、
+`extractFromTab()`がフレームごとのtraceを結合して
+`console.info("[p5.js Relay] extractFromTab debug:", ...)`で
+Service Workerコンソールに出す(`chrome://extensions`の対象拡張→
+「service worker」リンクから確認できる)。今後同様の「原因不明の
+抽出失敗」が起きたら、まずこのdebugログを見ること。
+
 ### 4.4 拡張機能アップデート後の「Extension context invalidated」対策
 
 拡張を更新すると、開きっぱなしのタブに残った旧content scriptが

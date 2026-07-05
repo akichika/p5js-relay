@@ -195,7 +195,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
   if (msg.type === "SEND_CANVAS") {
     extractFromTab(sender.tab.id)
-      .then((code) => {
+      .then(({ code }) => {
         if (!code || !code.trim()) throw new Error(t("errCanvasExtract"));
         return handleSend(code, msg.ruleId);
       })
@@ -356,17 +356,40 @@ async function extractFromTab(tabId) {
   // 全フレーム(クロスオリジンiframe含む)を対象に実行し、最も長い
   // 結果を採用する。host_permissions:<all_urls>によりiframeの
   // オリジンを問わず注入できる。
-  const results = await chrome.scripting.executeScript({
-    target: { tabId, allFrames: true },
-    world: "MAIN",
-    func: extractCanvasCodeInPage
+  let results;
+  let execError = null;
+  try {
+    results = await chrome.scripting.executeScript({
+      target: { tabId, allFrames: true },
+      world: "MAIN",
+      func: extractCanvasCodeInPage
+    });
+  } catch (e) {
+    execError = String((e && e.message) || e);
+    results = [];
+  }
+  const frameInfo = results.map((r) => {
+    if (r.error) return `#${r.frameId}: ERR ${String(r.error.message || r.error)}`;
+    const val = r.result;
+    if (val && typeof val === "object") {
+      return `#${r.frameId}: len=${val.code ? val.code.length : 0} trace=[${(val.trace || []).join(" ; ")}]`;
+    }
+    return `#${r.frameId}: no-result (${typeof val})`;
   });
+  const debug =
+    (execError ? "executeScript threw: " + execError + " / " : "") +
+    "frames=" +
+    results.length +
+    " [" +
+    frameInfo.join(" || ") +
+    "]";
+  console.info("[p5.js Relay] extractFromTab debug:", debug);
   let best = "";
   for (const r of results) {
-    const val = r && r.result;
+    const val = r && r.result && r.result.code;
     if (typeof val === "string" && val.length > best.length) best = val;
   }
-  return best;
+  return { code: best, debug };
 }
 
 // ---- コード分割 (SWにはDOMParserが無いため正規表現ベース) ----
@@ -498,6 +521,16 @@ function splitCode(code) {
 // コード表示トグルのクリックを試みてから再抽出する。
 async function extractCanvasCodeInPage() {
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const trace = [];
+  // console.infoはchrome.scripting経由の注入だと呼び出し元(background.js)の
+  // read_console_messages相当のツールから見えないことがあるため、診断情報は
+  // 戻り値のtraceに積んで呼び出し元へ確実に返す。
+  const log = (...a) => {
+    try {
+      trace.push(a.map((x) => (typeof x === "string" ? x : JSON.stringify(x))).join(" "));
+      console.info("[p5.js Relay]", ...a);
+    } catch (e) {}
+  };
 
   function deepQueryAll(selector, root = document, acc = []) {
     if (root.querySelectorAll) {
@@ -527,17 +560,49 @@ async function extractCanvasCodeInPage() {
       const txt = el.innerText;
       if (txt && txt.trim().length > 20) candidates.push(txt);
     }
+    // claude.aiの現行コード表示は独自レンダラーで、CodeMirror/Monaco/pre
+    // のいずれでもなく、1行=1要素(class名に"group/line"を含む)で描画される。
+    // 各行要素の最後の子要素がその行のコード本体(先頭2つは行番号・折りたたみ
+    // ガター用のspanで、select-noneが付いている)。実DOM調査で確認済み。
+    // Claude側のUI変更で壊れやすいセレクタなので、他の方式が全滅した時の
+    // 最終手段として一番後ろに追加する。
+    const lineEls = deepQueryAll(".group\\/line");
+    if (lineEls.length) {
+      const joined = lineEls
+        .map((l) => {
+          const last = l.lastElementChild;
+          return (last ? last.textContent : l.textContent) || "";
+        })
+        .join("");
+      if (joined.trim()) candidates.push(joined);
+    }
     if (!candidates.length) return "";
     candidates.sort((a, b) => b.length - a.length);
     return candidates[0].replace(/\u00a0/g, " ");
   }
 
+  log(
+    "extractCanvas: frame=", location.href,
+    "cm-content=", deepQueryAll(".cm-content").length,
+    "CodeMirror=", deepQueryAll(".CodeMirror").length,
+    "monaco=", !!(window.monaco && window.monaco.editor),
+    "pre=", deepQueryAll("pre").length,
+    "body.childElementCount=", document.body ? document.body.childElementCount : -1
+  );
+
   let best = collect();
-  if (best.length >= 40) return best;
+  log("extractCanvas: initial collect length=", best.length);
+  if (best.length >= 40) return { code: best, trace };
 
   // コードがDOMに無い(プレビュー表示等) → コード表示トグルを探してクリック
+  // claude.aiの現行UIはプレビュー/コード切替が role="radio"
+  // (role="radiogroup"の中、aria-label="コード"/"Code")で実装されている
+  // (button/role=tabではない。実DOM調査で確認済み)。
   const togglePat = /code|コード|source|ソース/i;
-  const buttons = deepQueryAll("button, [role='tab'], [role='button']");
+  const buttons = deepQueryAll(
+    "button, [role='tab'], [role='button'], [role='radio']"
+  );
+  log("extractCanvas: toggle candidate buttons=", buttons.length);
   for (const b of buttons) {
     const label =
       (b.getAttribute("aria-label") || "") +
@@ -548,15 +613,18 @@ async function extractCanvasCodeInPage() {
     if (!togglePat.test(label)) continue;
     const rect = b.getBoundingClientRect();
     if (rect.width === 0 || rect.width > 120) continue;
+    log("extractCanvas: clicking toggle", label, rect.width, rect.height);
     try {
       b.click();
     } catch (e) {}
     await sleep(800);
     const again = collect();
+    log("extractCanvas: after toggle click collect length=", again.length);
     if (again.length > best.length) best = again;
     if (best.length >= 40) break;
   }
-  return best;
+  log("extractCanvas: final length=", best.length, "frame=", location.href);
+  return { code: best, trace };
 }
 
 // ---- MAINワールド: コードをエディタへ反映 ----

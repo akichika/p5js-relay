@@ -3,6 +3,18 @@
 このプロジェクトのバージョンは [Semantic Versioning](https://semver.org/lang/ja/) に
 概ね従っています。詳細な技術的経緯は `HANDOFF.md` の第6章も参照してください。
 
+## [2.5.3] - 2026-07-04
+### Fixed
+- claude.aiのArtifactからの転送が2.5.2でも失敗する問題を修正。実機のDOM調査で
+  判明した本当の原因は2つ:
+  1. プレビュー/コード表示の切替ボタンが `role="radio"`(`role="radiogroup"`内、
+     aria-label="コード")として実装されており、トグルボタン検出のセレクタ
+     (`button, [role='tab'], [role='button']`)に含まれていなかった
+  2. コード表示自体もCodeMirror/Monaco/`<pre>`ではなく、1行=1要素
+     (class名に`group/line`を含む独自レンダラー)で描画されている
+- `[role='radio']`をトグル検出対象に追加し、`group/line`要素からのコード
+  抽出(各行要素の最後の子要素がコード本体)を新しい抽出方式として追加
+
 ## [2.5.2] - 2026-07-04
 ### Fixed
 - claude.aiのArtifactからの転送が常に失敗する不具合を修正。原因は
