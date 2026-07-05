@@ -11,16 +11,16 @@ Chrome / Microsoft Edge（Chromium系ブラウザ）対応の拡張機能（Mani
 
 | | |
 |---|---|
-| ![Claudeでの転送ボタンと送信先メニュー](screenshots/01-menu-and-transfer-button.png) | ![Claude ArtifactパネルからCodePenへ転送](screenshots/03-claude-artifact-preview.png) |
+| ![Claudeでの転送ボタンと送信先メニュー](screenshots/01-menu-and-transfer-button.png) | ![Claude Artifactパネルからの転送](screenshots/03-claude-artifact-preview.png) |
 | ChatGPT/Claudeのコードブロックに表示される「✳ 転送」ボタンと送信先メニュー | Artifactパネルからも同じボタンで転送可能 |
 | ![claude.aiの常設フローティングボタン](screenshots/02-claude-fab.png) | ![p5.js Web Editorへ転送した結果](screenshots/04-p5js-editor.png) |
 | パネルを閉じていても使える常設フローティングボタン(FAB) | p5.js Web Editorへワンタッチで反映 |
-| ![CodePenへファイル振り分け転送した結果](screenshots/05-codepen-editor.png) | ![ChatGPTで生成した3Dブロック崩しのコード](screenshots/09-chatgpt-blockbreaker-code.png) |
-| CodePenへはHTML/CSS/JSパネルに自動振り分け | ChatGPTが生成した3Dブロック崩しも「✳ 転送」ボタン一つでp5.js Web Editorへ |
-| ![p5.js Web Editorで動く3Dブロック崩し](screenshots/06-p5js-blockbreaker-code.png) | ![Geminiで生成した花火のコード](screenshots/07-gemini-fireworks-code.png) |
-| 転送後、そのまま実行できる | Geminiで生成した花火エフェクトのコードも同様に転送可能 |
-| ![p5.js Web Editorで再現された花火エフェクト](screenshots/08-p5js-fireworks-preview.png) | |
-| 転送後、p5.js Web Editor上でそのまま花火が再現される | |
+| ![CodePenへのファイル振り分け転送結果](screenshots/05-codepen-editor.png) | ![OpenProcessingへのファイル振り分け転送結果](screenshots/10-openprocessing-multifile.png) |
+| CodePenへはHTML/CSS/JSパネルに自動振り分け | OpenProcessingは「HTML/CSS/JS」モードを選択したうえで転送すると、mySketch.js / style.css / index.htmlの3ファイルに自動で振り分けて貼り付けます |
+| ![ChatGPTで生成したコードと転送ボタン](screenshots/09-chatgpt-blockbreaker-code.png) | ![Geminiで生成したコードと転送ボタン](screenshots/07-gemini-fireworks-code.png) |
+| ChatGPTで生成したコードも「✳ 転送」ボタン一つでp5.js Web Editorへ | Geminiで生成したコードも同様に転送可能 |
+| ![転送後にp5.js Web Editorで実行される様子](screenshots/06-p5js-blockbreaker-code.png) | ![転送後にp5.js Web Editorで実行される様子](screenshots/08-p5js-fireworks-preview.png) |
+| コピー&ペーストを挟まずそのまま実行できる | コピー&ペーストを挟まずそのまま実行できる |
 
 ## インストール（開発者モード）
 
