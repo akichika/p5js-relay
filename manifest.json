@@ -1,12 +1,22 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "2.5.5",
+  "version": "2.6.0",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "homepage_url": "https://github.com/akichika/p5js-relay",
   "permissions": ["storage", "tabs", "scripting", "contextMenus", "clipboardWrite"],
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "https://claude.ai/*",
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://gemini.google.com/*",
+    "https://aistudio.google.com/*",
+    "https://editor.p5js.org/*",
+    "https://openprocessing.org/*",
+    "https://codepen.io/*"
+  ],
+  "optional_host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
   },

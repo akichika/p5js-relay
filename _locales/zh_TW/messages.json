@@ -140,6 +140,12 @@
       }
     }
   },
+  "errNoPermission": {
+    "message": "尚未取得此目標網站的存取權限。請開啟選項頁面，再次點擊「儲存」以授權。"
+  },
+  "msgPermissionDenied": {
+    "message": "未取得新目標站點的存取權限，因此暫時無法使用。請再次點擊「儲存」重試。"
+  },
   "helpSummary": {
     "message": "使用提示"
   },

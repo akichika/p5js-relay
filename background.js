@@ -156,6 +156,26 @@ function patternToRegex(pattern) {
   return new RegExp("^" + pattern.split("*").map(esc).join(".*") + "$");
 }
 
+// ---- ホスト権限(optional_host_permissions)関連 ----
+// v2.6.0で host_permissions: <all_urls> を撤廃し、既知の8サイト(送信元5+
+// デフォルト送信先3)のみ静的に許可、それ以外のユーザー登録先は
+// optional_host_permissionsで個別リクエストする方式に変更した。
+// options.js側にも同名の関数がある(共有モジュールが無い構成のため複製)。
+function patternToOrigin(pattern) {
+  const m = /^https?:\/\/[^/*]+/.exec(pattern || "");
+  return m ? m[0] + "/*" : null;
+}
+
+async function hasHostPermission(urlPattern) {
+  const origin = patternToOrigin(urlPattern);
+  if (!origin) return true; // 判定できない場合は素通しし、実際の失敗に委ねる
+  try {
+    return await chrome.permissions.contains({ origins: [origin] });
+  } catch (e) {
+    return false;
+  }
+}
+
 async function maybeFollowDefault(url) {
   if (!url || !/^https?:/.test(url)) return;
   const { rules = [], defaultRuleId } = await chrome.storage.sync.get([
@@ -235,6 +255,10 @@ async function handleSend(code, ruleId) {
     enabled.find((r) => r.id === defaultRuleId) ||
     enabled[0];
   if (!rule) throw new Error(t("errNoRule"));
+
+  if (!(await hasHostPermission(rule.urlPattern))) {
+    throw new Error(t("errNoPermission"));
+  }
 
   await chrome.storage.local.set({ lastCode: code, lastAt: Date.now() });
 

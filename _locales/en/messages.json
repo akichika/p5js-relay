@@ -140,6 +140,12 @@
       }
     }
   },
+  "errNoPermission": {
+    "message": "Permission for this destination site hasn't been granted yet. Open the options page and click Save again to grant access."
+  },
+  "msgPermissionDenied": {
+    "message": "Permission for the new destination wasn't granted, so it won't work yet. Click Save again to retry."
+  },
   "helpSummary": {
     "message": "Tips"
   },

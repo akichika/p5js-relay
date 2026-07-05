@@ -140,6 +140,12 @@
       }
     }
   },
+  "errNoPermission": {
+    "message": "A permissão para este site de destino ainda não foi concedida. Abra a página de opções e clique em \"Salvar\" novamente para concedê-la."
+  },
+  "msgPermissionDenied": {
+    "message": "A permissão para o novo destino não foi concedida, então ele ainda não funcionará. Clique em \"Salvar\" novamente para tentar de novo."
+  },
   "helpSummary": {
     "message": "Dicas"
   },

@@ -3,6 +3,27 @@
 このプロジェクトのバージョンは [Semantic Versioning](https://semver.org/lang/ja/) に
 概ね従っています。詳細な技術的経緯は `HANDOFF.md` の第6章も参照してください。
 
+## [2.6.0] - 2026-07-05
+### Changed
+- `host_permissions: ["<all_urls>"]` を撤廃。Chrome Web Store提出時に
+  「Broad Host Permissions」警告（詳細審査で公開が遅延する可能性がある）
+  を受けたため、既知の8サイト（送信元5: claude.ai/chatgpt.com/
+  chat.openai.com/gemini.google.com/aistudio.google.com、デフォルト
+  送信先3: editor.p5js.org/openprocessing.org/codepen.io）のみを
+  静的な`host_permissions`とし、それ以外のユーザー登録先は
+  `optional_host_permissions: ["<all_urls>"]`から個別にリクエストする
+  方式に変更
+- オプションページの「保存」ボタンで、未許可のオリジンがあれば
+  `chrome.permissions.request()`でまとめて許可を求めるようにした
+  （ユーザー操作の文脈が必要なため、送信時ではなく保存時に実施）
+- `background.js`の`handleSend()`に許可チェックを追加。許可が無い場合は
+  `errNoPermission`（オプションページで保存し直すよう案内）を返す
+- 新規メッセージキー`errNoPermission`・`msgPermissionDenied`を全10言語に追加
+### Note
+- デフォルトの3送信先は起動時から権限が付与済みのため、通常利用での
+  権限プロンプトは発生しない。ユーザーが独自の送信先を追加した時だけ、
+  保存時にその1サイト分の許可を求めるプロンプトが表示される
+
 ## [2.5.5] - 2026-07-04
 ### Added
 - 抽出処理(`extractCanvasCodeInPage`)に、既知のセレクタが将来のUI変更で

@@ -140,6 +140,12 @@
       }
     }
   },
+  "errNoPermission": {
+    "message": "尚未获得此目标网站的访问权限。请打开选项页面，再次点击“保存”以授权。"
+  },
+  "msgPermissionDenied": {
+    "message": "未获得新目标站点的访问权限，因此暂时无法使用。请再次点击“保存”重试。"
+  },
   "helpSummary": {
     "message": "使用提示"
   },

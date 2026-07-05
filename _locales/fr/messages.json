@@ -140,6 +140,12 @@
       }
     }
   },
+  "errNoPermission": {
+    "message": "L'autorisation pour ce site de destination n'a pas encore été accordée. Ouvrez la page des options et cliquez de nouveau sur « Enregistrer » pour l'accorder."
+  },
+  "msgPermissionDenied": {
+    "message": "L'autorisation pour la nouvelle destination n'a pas été accordée, elle ne fonctionnera donc pas encore. Cliquez de nouveau sur « Enregistrer » pour réessayer."
+  },
   "helpSummary": {
     "message": "Astuces"
   },

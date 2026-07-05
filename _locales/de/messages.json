@@ -140,6 +140,12 @@
       }
     }
   },
+  "errNoPermission": {
+    "message": "Die Berechtigung für diese Zielseite wurde noch nicht erteilt. Öffnen Sie die Optionsseite und klicken Sie erneut auf \"Speichern\", um sie zu erteilen."
+  },
+  "msgPermissionDenied": {
+    "message": "Die Berechtigung für das neue Ziel wurde nicht erteilt, es funktioniert daher noch nicht. Klicken Sie erneut auf \"Speichern\", um es erneut zu versuchen."
+  },
   "helpSummary": {
     "message": "Tipps"
   },

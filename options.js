@@ -166,6 +166,15 @@ document.getElementById("add").addEventListener("click", () => {
   render();
 });
 
+// v2.6.0: host_permissions: <all_urls> を撤廃し、既知の8サイト以外は
+// optional_host_permissionsで個別リクエストする方式に変更した。
+// urlPatternからオリジン部分(スキーム+ホスト)だけを取り出す。
+// background.jsにも同名の関数がある(共有モジュールが無い構成のため複製)。
+function patternToOrigin(pattern) {
+  const m = /^https?:\/\/[^/*]+/.exec(pattern || "");
+  return m ? m[0] + "/*" : null;
+}
+
 document.getElementById("save").addEventListener("click", async () => {
   for (const r of state.rules) {
     if (!r.name || !r.urlPattern) {
@@ -177,12 +186,37 @@ document.getElementById("save").addEventListener("click", async () => {
       return;
     }
   }
+
+  // 未許可のオリジンがあれば、保存前にまとめて権限をリクエストする
+  // (ボタンのクリック=ユーザー操作の文脈でなければリクエストできないため、
+  // send時ではなくここで行う)。
+  const origins = [];
+  for (const r of state.rules) {
+    const origin = patternToOrigin(r.urlPattern);
+    if (!origin || origins.includes(origin)) continue;
+    origins.push(origin);
+  }
+  const needed = [];
+  for (const origin of origins) {
+    const has = await chrome.permissions.contains({ origins: [origin] });
+    if (!has) needed.push(origin);
+  }
+  let permissionDenied = false;
+  if (needed.length) {
+    let granted = false;
+    try {
+      granted = await chrome.permissions.request({ origins: needed });
+    } catch (e) {}
+    // 権限が無いと動かないだけで、設定自体は保存して続行する
+    permissionDenied = !granted;
+  }
+
   await chrome.storage.sync.set({
     rules: state.rules,
     defaultRuleId: state.defaultRuleId,
     clearBefore: clearBeforeEl.checked
   });
-  flash(MSG("msgSaved"));
+  flash(permissionDenied ? MSG("msgPermissionDenied") : MSG("msgSaved"), permissionDenied);
 });
 
 function flash(msg, isError) {
