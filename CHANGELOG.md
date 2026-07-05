@@ -3,6 +3,16 @@
 このプロジェクトのバージョンは [Semantic Versioning](https://semver.org/lang/ja/) に
 概ね従っています。詳細な技術的経緯は `HANDOFF.md` の第6章も参照してください。
 
+## [2.5.4] - 2026-07-04
+### Fixed
+- claude.aiで、Artifactパネルを閉じた状態のままFAB(常設フローティングボタン)
+  から直接転送すると失敗する不具合を修正。パネルが閉じているとコード表示
+  トグル自体がDOM上に存在しないため、まずチャット内のArtifactカード
+  (`.group\/artifact-block`)を開く処理を追加。カード外側のdivはclick()に
+  反応しないため、内部の実`<button>`要素を操作するようにした
+  (初期実装では`[class*='artifact-block']`という部分一致セレクタを使って
+  しまい、子要素の"artifact-block-cell"を誤って掴んでいたため完全一致に修正)
+
 ## [2.5.3] - 2026-07-04
 ### Fixed
 - claude.aiのArtifactからの転送が2.5.2でも失敗する問題を修正。実機のDOM調査で

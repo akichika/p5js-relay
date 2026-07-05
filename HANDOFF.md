@@ -268,6 +268,33 @@ Service Workerコンソールに出す(`chrome://extensions`の対象拡張→
 「service worker」リンクから確認できる)。今後同様の「原因不明の
 抽出失敗」が起きたら、まずこのdebugログを見ること。
 
+**v2.5.4追記 — Artifactパネルが完全に閉じている状態(FAB単独クリック)**:
+v2.5.3までの修正はパネルが既に開いている(プレビュー表示中)前提だった。
+実際には**パネルが完全に閉じている状態でFABを直接クリックする**ケースが
+あり、この場合コード表示トグル自体がDOMに存在しないため抽出に失敗した。
+
+対策として、チャット内のArtifactカード(class名`group/artifact-block`)を
+まず開く処理を追加した。ここでも2つの落とし穴があった:
+1. `[class*='artifact-block']`のような**部分一致**セレクタは、子要素の
+   `artifact-block-cell`等も一致してしまい、意図しない(小さすぎる)
+   要素を掴んで開閉に失敗する。**完全一致**の`.group\/artifact-block`
+   を使うこと。
+2. カードの外側div要素は`.click()`や合成`dispatchEvent()`に一切反応しない
+   (React/Radix系のポインタイベント処理が`event.isTrusted`を見ている
+   等の理由と推測される)。カード内部にある実`<button>`要素
+   (class="absolute inset-0 cursor-pointer ...")を`querySelector("button")`
+   で取得し、そちらをクリックすることで開けた。**逆に`role="radio"`の
+   トグル(4.3参照)は外側要素のclick()でも問題なく反応した**ため、
+   「クリックしても反応しない要素に遭遇したら、まず実`<button>`が
+   ネストされていないか調べる」のがこの手のUIライブラリへの定石。
+
+**デバッグ手法の教訓(追記)**: `chrome.scripting.executeScript`経由の
+クリックが効かない場合、ブラウザの実クリック(CDP等の信頼された入力)なら
+反応するのに、ページに注入したJSからの`.click()`/`dispatchEvent()`では
+反応しないことがある。これは`isTrusted`チェック等によるもので、
+スクリプト側からは原理的に回避できない。今後クリックが「反応する要素と
+反応しない要素がある」という報告が来たら、まずこの可能性を疑うこと。
+
 ### 4.4 拡張機能アップデート後の「Extension context invalidated」対策
 
 拡張を更新すると、開きっぱなしのタブに残った旧content scriptが

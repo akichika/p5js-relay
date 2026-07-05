@@ -594,6 +594,33 @@ async function extractCanvasCodeInPage() {
   log("extractCanvas: initial collect length=", best.length);
   if (best.length >= 40) return { code: best, trace };
 
+  // claude.aiでArtifactパネルが完全に閉じている場合(FABをそのままクリックした場合)、
+  // コード表示トグル自体もDOMに存在しない。チャット内のArtifactカード
+  // (class名 "group/artifact-block" のブロック)をクリックしてパネルを開く。
+  // 注意1: [class*='artifact-block']のような部分一致セレクタは
+  // 子要素の"artifact-block-cell"等も拾ってしまい誤動作するため、
+  // 完全一致の".group\/artifact-block"を使うこと。
+  // 注意2: カードの外側div要素はclick()に反応しない(React/Radix系の
+  // ポインタイベント処理が合成イベントを無視するため)。内部の実<button>
+  // (class="absolute inset-0 cursor-pointer ...")を狙うことで動作する
+  // (実DOM調査で確認済み)。複数Artifactがある場合は直近(最後)のものを開く。
+  const artifactBlocks = deepQueryAll(".group\\/artifact-block");
+  if (artifactBlocks.length) {
+    const block = artifactBlocks[artifactBlocks.length - 1];
+    const openBtn = block.querySelector("button") || block;
+    const rect = openBtn.getBoundingClientRect();
+    log("extractCanvas: artifact-block found=", artifactBlocks.length, "openBtn rect=", rect.width, rect.height);
+    if (rect.width > 20 && rect.height > 20) {
+      try {
+        openBtn.click();
+      } catch (e) {}
+      await sleep(900);
+      best = collect();
+      log("extractCanvas: after artifact-block open collect length=", best.length);
+      if (best.length >= 40) return { code: best, trace };
+    }
+  }
+
   // コードがDOMに無い(プレビュー表示等) → コード表示トグルを探してクリック
   // claude.aiの現行UIはプレビュー/コード切替が role="radio"
   // (role="radiogroup"の中、aria-label="コード"/"Code")で実装されている
