@@ -3,6 +3,16 @@
 このプロジェクトのバージョンは [Semantic Versioning](https://semver.org/lang/ja/) に
 概ね従っています。詳細な技術的経緯は `HANDOFF.md` の第6章も参照してください。
 
+## [2.6.1] - 2026-07-05
+### Fixed
+- オプションページで新しい送信先を保存した際、権限確認ダイアログが
+  表示されない不具合を修正。原因は`chrome.permissions.request()`の
+  直前に`chrome.permissions.contains()`を複数回awaitでループ実行して
+  おり、保存ボタンクリックのユーザージェスチャーが失効していたこと。
+  事前フィルタを廃止し、対象オリジンをまとめて一度に`request()`へ
+  渡す(既に許可済みのオリジンが混在してもダイアログは出ず即trueに
+  なるだけなので問題ない)ように変更
+
 ## [2.6.0] - 2026-07-05
 ### Changed
 - `host_permissions: ["<all_urls>"]` を撤廃。Chrome Web Store提出時に

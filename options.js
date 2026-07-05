@@ -187,26 +187,28 @@ document.getElementById("save").addEventListener("click", async () => {
     }
   }
 
-  // 未許可のオリジンがあれば、保存前にまとめて権限をリクエストする
-  // (ボタンのクリック=ユーザー操作の文脈でなければリクエストできないため、
-  // send時ではなくここで行う)。
+  // 保存前にまとめて権限をリクエストする(ボタンのクリック=ユーザー操作の
+  // 文脈でなければリクエストできないため、send時ではなくここで行う)。
+  // 注意: chrome.permissions.request()はクリックのユーザージェスチャーを
+  // 使うが、その直前に await を複数回挟むと(例:事前にcontains()を
+  // ループで呼ぶ等)ジェスチャーが失効してダイアログが出ないことがある
+  // (実機で確認済みの不具合)。そのため事前フィルタはせず、対象オリジンを
+  // 全て一度にrequest()へ渡す(既に許可済みのオリジンが混ざっていても
+  // ダイアログは出ず即trueで解決されるだけなので問題ない)。
   const origins = [];
   for (const r of state.rules) {
     const origin = patternToOrigin(r.urlPattern);
     if (!origin || origins.includes(origin)) continue;
     origins.push(origin);
   }
-  const needed = [];
-  for (const origin of origins) {
-    const has = await chrome.permissions.contains({ origins: [origin] });
-    if (!has) needed.push(origin);
-  }
   let permissionDenied = false;
-  if (needed.length) {
+  if (origins.length) {
     let granted = false;
     try {
-      granted = await chrome.permissions.request({ origins: needed });
-    } catch (e) {}
+      granted = await chrome.permissions.request({ origins });
+    } catch (e) {
+      console.error("[p5.js Relay]", e);
+    }
     // 権限が無いと動かないだけで、設定自体は保存して続行する
     permissionDenied = !granted;
   }
