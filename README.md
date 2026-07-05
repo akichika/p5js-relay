@@ -1,5 +1,7 @@
 # ✳ p5.js Relay
 
+[English](README.en.md) | 日本語
+
 Claude / ChatGPT / Gemini で生成されたコードを p5.js Web Editor 等へ簡単転送。バイブコーディングなどの用途に。
 
 Chrome / Microsoft Edge（Chromium系ブラウザ）対応の拡張機能（Manifest V3）です。単一HTMLは **index.html / style.css / sketch.js に自動振り分け**して貼り付けます。
@@ -17,10 +19,10 @@ Chrome / Microsoft Edge（Chromium系ブラウザ）対応の拡張機能（Mani
 | パネルを閉じていても使える常設フローティングボタン(FAB) | p5.js Web Editorへワンタッチで反映 |
 | ![CodePenへのファイル振り分け転送結果](screenshots/05-codepen-editor.png) | ![OpenProcessingへのファイル振り分け転送結果](screenshots/10-openprocessing-multifile.png) |
 | CodePenへはHTML/CSS/JSパネルに自動振り分け | OpenProcessingは「HTML/CSS/JS」モードを選択したうえで転送すると、mySketch.js / style.css / index.htmlの3ファイルに自動で振り分けて貼り付けます |
-| ![ChatGPTで生成したコードと転送ボタン](screenshots/09-chatgpt-blockbreaker-code.png) | ![Geminiで生成したコードと転送ボタン](screenshots/07-gemini-fireworks-code.png) |
-| ChatGPTで生成したコードも「✳ 転送」ボタン一つでp5.js Web Editorへ | Geminiで生成したコードも同様に転送可能 |
-| ![転送後にp5.js Web Editorで実行される様子](screenshots/06-p5js-blockbreaker-code.png) | ![転送後にp5.js Web Editorで実行される様子](screenshots/08-p5js-fireworks-preview.png) |
-| コピー&ペーストを挟まずそのまま実行できる | コピー&ペーストを挟まずそのまま実行できる |
+| ![ChatGPTで生成したコードと転送ボタン](screenshots/09-chatgpt-blockbreaker-code.png) | ![転送後にp5.js Web Editorで実行される様子](screenshots/06-p5js-blockbreaker-code.png) |
+| ChatGPTで生成したコードも「✳ 転送」ボタン一つでp5.js Web Editorへ | コピー&ペーストを挟まずそのまま実行できる |
+| ![Geminiで生成したコードと転送ボタン](screenshots/07-gemini-fireworks-code.png) | ![転送後にp5.js Web Editorで実行される様子](screenshots/08-p5js-fireworks-preview.png) |
+| Geminiで生成したコードも同様に転送可能 | コピー&ペーストを挟まずそのまま実行できる |
 
 ## インストール（開発者モード）
 
