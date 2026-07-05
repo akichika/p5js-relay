@@ -7,6 +7,17 @@ Chrome / Microsoft Edge（Chromium系ブラウザ）対応の拡張機能（Mani
 - リポジトリ: https://github.com/akichika/p5js-relay
 - Issue報告・Pull Requestは上記リポジトリへどうぞ
 
+## スクリーンショット
+
+| | |
+|---|---|
+| ![Claudeでの転送ボタンと送信先メニュー](screenshots/01-menu-and-transfer-button.png) | ![Claude ArtifactパネルからCodePenへ転送](screenshots/03-claude-artifact-preview.png) |
+| ChatGPT/Claudeのコードブロックに表示される「✳ 転送」ボタンと送信先メニュー | Artifactパネルからも同じボタンで転送可能 |
+| ![claude.aiの常設フローティングボタン](screenshots/02-claude-fab.png) | ![p5.js Web Editorへ転送した結果](screenshots/04-p5js-editor.png) |
+| パネルを閉じていても使える常設フローティングボタン(FAB) | p5.js Web Editorへワンタッチで反映 |
+| ![CodePenへファイル振り分け転送した結果](screenshots/05-codepen-editor.png) | |
+| CodePenへはHTML/CSS/JSパネルに自動振り分け | |
+
 ## インストール（開発者モード）
 
 ### Chrome
