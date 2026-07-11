@@ -101,3 +101,6 @@ Bug reports, feature requests, and pull requests are accepted on the GitHub repo
 ## License / Author
 
 MIT License. © 2026 [akichika](https://x.com/akichika)
+
+p5.js and p5.sound, bundled under `lib/` (both LGPL-2.1), are not covered by this
+project's MIT license. See [lib/README.md](lib/README.md) for details.
