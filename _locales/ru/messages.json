@@ -67,6 +67,9 @@
   "popOptions": {
     "message": "Управление местами назначения…"
   },
+  "popShowButton": {
+    "message": "Показывать кнопку «Перенести» на страницах"
+  },
   "popAppliedTo": {
     "message": "✓ Перенесено в $TARGET$ ($DETAIL$)",
     "placeholders": {

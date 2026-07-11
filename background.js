@@ -225,7 +225,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
   if (msg.type === "GET_STATE") {
     chrome.storage.sync
-      .get(["rules", "defaultRuleId", "clearBefore", "theme", "lang"])
+      .get(["rules", "defaultRuleId", "clearBefore", "theme", "lang", "buttonVisible"])
       .then(async (sync) => {
         const local = await chrome.storage.local.get([
           "lastCode",
@@ -282,16 +282,16 @@ async function handleSend(code, ruleId) {
         payload.html = parts.libs.join("\n");
       }
       // 生成コードがJSのみ(HTML/CSSを含まない)場合でも、実行に必要な
-      // デフォルトのHTML(p5.js CDN読込)とCSSを外挿して必ず3パネル転送する
+      // デフォルトのHTML(拡張機能に同梱したp5.js読込)とCSSを外挿して必ず3パネル転送する
       if (!payload.html && payload.js) {
         const defLibs = [];
         if (/\b(setup|draw)\s*\(/.test(payload.js)) {
           defLibs.push(
-            '<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>'
+            `<script src="${chrome.runtime.getURL("lib/p5.min.js")}"></script>`
           );
           if (/\b(loadSound|p5\.SoundFile|userStartAudio|getAudioContext)\b/.test(payload.js)) {
             defLibs.push(
-              '<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>'
+              `<script src="${chrome.runtime.getURL("lib/p5.sound.min.js")}"></script>`
             );
           }
         }
@@ -505,9 +505,10 @@ function splitCode(code) {
     html = html.replace(/<\/body>/i, '  <script src="sketch.js"></script>\n</body>');
   }
 
-  // JSがp5スケッチなのにp5読込が無ければCDNを補完
-  const P5_CDN =
-    "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js";
+  // JSがp5スケッチなのにp5読込が無ければ、拡張機能に同梱したp5.jsを補完
+  // (Chrome Web StoreのManifest V3ポリシー上、リモートホストのコードを
+  // 参照できないため、CDN URLではなく拡張機能パッケージ内のファイルを使う)
+  const P5_CDN = chrome.runtime.getURL("lib/p5.min.js");
   if (js && /\b(setup|draw)\s*\(/.test(js) && !libs.some((l) => isP5Core(l.url))) {
     const tag = `<script src="${P5_CDN}"></script>`;
     libs.unshift({ tag, url: P5_CDN });

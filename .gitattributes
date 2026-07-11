@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Vendored third-party libraries: keep byte-for-byte as distributed
+lib/*.js -text

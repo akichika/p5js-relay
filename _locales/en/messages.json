@@ -67,6 +67,9 @@
   "popOptions": {
     "message": "Manage destinations…"
   },
+  "popShowButton": {
+    "message": "Show transfer button on pages"
+  },
   "popAppliedTo": {
     "message": "✓ Transferred to $TARGET$ ($DETAIL$)",
     "placeholders": {

@@ -4,6 +4,7 @@ const targetEl = document.getElementById("target");
 const previewEl = document.getElementById("preview");
 const resendEl = document.getElementById("resend");
 const resultEl = document.getElementById("result");
+const showButtonEl = document.getElementById("showButton");
 
 let lastCode = null;
 
@@ -33,6 +34,11 @@ async function init() {
     resendEl.disabled = false;
   }
   if (state.lastResult) showResult(state.lastResult);
+
+  showButtonEl.checked = state.buttonVisible !== false;
+  showButtonEl.addEventListener("change", () => {
+    chrome.storage.sync.set({ buttonVisible: showButtonEl.checked });
+  });
 }
 
 function showResult(res) {

@@ -67,6 +67,9 @@
   "popOptions": {
     "message": "管理目标…"
   },
+  "popShowButton": {
+    "message": "在页面上显示转发按钮"
+  },
   "popAppliedTo": {
     "message": "✓ 已转发到 $TARGET$（$DETAIL$）",
     "placeholders": {

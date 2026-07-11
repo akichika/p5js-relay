@@ -67,6 +67,9 @@
   "popOptions": {
     "message": "Ziele verwalten…"
   },
+  "popShowButton": {
+    "message": "Übertragen-Schaltfläche auf Seiten anzeigen"
+  },
   "popAppliedTo": {
     "message": "✓ Übertragen an $TARGET$ ($DETAIL$)",
     "placeholders": {

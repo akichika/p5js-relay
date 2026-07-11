@@ -3,6 +3,21 @@
 このプロジェクトのバージョンは [Semantic Versioning](https://semver.org/lang/ja/) に
 概ね従っています。詳細な技術的経緯は `HANDOFF.md` の第6章も参照してください。
 
+## [2.6.2] - 2026-07-11
+### Fixed
+- Chrome Web Store審査で「Manifest V3使用時のリモートホストコード禁止」
+  違反として却下された問題を修正。原因は`background.js`内で、生成コードが
+  p5.jsスケッチなのにp5.js本体の読み込みが無い場合に自動挿入していた
+  `<script src="https://cdnjs.cloudflare.com/...">`タグ。cdnjs.cloudflare.com
+  から取得したp5.js 1.9.0本体(p5.min.js)とp5.sound.min.jsを`lib/`配下に
+  同梱し、`web_accessible_resources`で公開したうえで
+  `chrome.runtime.getURL()`経由で参照するように変更。CDNへの依存を排し、
+  拡張機能パッケージ内で完結するようにした
+### Added
+- 拡張機能アイコンのポップアップメニューに、送信元ページでの「✳ 転送」
+  ボタン表示/非表示を切り替えるトグルを追加(`chrome.storage.sync`の
+  `buttonVisible`に保存。既定はON)。切り替えは開いているタブに即時反映
+
 ## [2.6.1] - 2026-07-05
 ### Fixed
 - オプションページで新しい送信先を保存した際、権限確認ダイアログが

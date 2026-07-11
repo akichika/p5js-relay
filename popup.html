@@ -55,6 +55,13 @@
     font-family: ui-monospace, Menlo, monospace; font-size: 10.5px;
     white-space: pre; color: var(--dim);
   }
+  .toggle-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toggle-row label {
+    margin: 0; color: var(--text); font-size: 12px; font-weight: 400; cursor: pointer;
+  }
+  .toggle-row input[type="checkbox"] { accent-color: var(--accent); cursor: pointer; }
   footer {
     padding: 8px 14px 12px;
     display: flex; justify-content: space-between; align-items: center;
@@ -83,6 +90,10 @@
   </div>
   <button id="resend" disabled data-i18n="popResend"></button>
   <span id="result"></span>
+  <div class="toggle-row">
+    <input type="checkbox" id="showButton" />
+    <label for="showButton" data-i18n="popShowButton"></label>
+  </div>
 </main>
 <footer>
   <a id="openOptions" data-i18n="popOptions"></a>

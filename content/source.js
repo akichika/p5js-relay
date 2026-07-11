@@ -72,13 +72,16 @@
 
   let rulesCache = { rules: [], defaultRuleId: null };
   let themeSetting = "system";
+  let buttonVisible = true; // ポップアップのトグルでON/OFF
 
   function refreshState() {
     safeSend({ type: "GET_STATE" }, (res) => {
       if (!res) return;
       rulesCache = res;
       themeSetting = res.theme || "system";
+      buttonVisible = res.buttonVisible !== false;
       applyThemeAll();
+      scan(document);
     });
   }
 
@@ -87,6 +90,10 @@
       if (!alive()) return;
       if (area !== "sync") return;
       if (changes.rules || changes.defaultRuleId || changes.theme) refreshState();
+      if (changes.buttonVisible) {
+        buttonVisible = changes.buttonVisible.newValue !== false;
+        scan(document); // ポップアップでの切り替えを即座に反映
+      }
       if (changes.lang) loadI18n(updateAllLabels);
     });
   } catch (e) {}
@@ -488,6 +495,10 @@
 
   function scan(root) {
     if (!alive()) return;
+    if (!buttonVisible) {
+      document.querySelectorAll("." + BTN_CLASS).forEach((w) => w.remove());
+      return;
+    }
     globalCleanup();
     (root.querySelectorAll ? root.querySelectorAll("pre") : []).forEach(
       attachButton

@@ -67,6 +67,9 @@
   "popOptions": {
     "message": "대상 관리…"
   },
+  "popShowButton": {
+    "message": "페이지에 전송 버튼 표시"
+  },
   "popAppliedTo": {
     "message": "✓ $TARGET$에 전송됨 ($DETAIL$)",
     "placeholders": {

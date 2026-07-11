@@ -67,6 +67,9 @@
   "popOptions": {
     "message": "送信先の登録・編集…"
   },
+  "popShowButton": {
+    "message": "ページ上に転送ボタンを表示"
+  },
   "popAppliedTo": {
     "message": "✓ $TARGET$ に転送済み ($DETAIL$)",
     "placeholders": {
