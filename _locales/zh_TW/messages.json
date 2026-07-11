@@ -65,7 +65,7 @@
     "message": "重新傳送最近的程式碼"
   },
   "popOptions": {
-    "message": "管理目標…"
+    "message": "設定"
   },
   "popShowButton": {
     "message": "在頁面上顯示轉發按鈕"

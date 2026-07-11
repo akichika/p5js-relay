@@ -65,7 +65,7 @@
     "message": "Resend last code"
   },
   "popOptions": {
-    "message": "Manage destinations…"
+    "message": "Settings"
   },
   "popShowButton": {
     "message": "Show transfer button on pages"

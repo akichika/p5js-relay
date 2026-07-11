@@ -65,7 +65,7 @@
     "message": "Reenviar el último código"
   },
   "popOptions": {
-    "message": "Gestionar destinos…"
+    "message": "Configuración"
   },
   "popShowButton": {
     "message": "Mostrar el botón de transferir en las páginas"

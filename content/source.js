@@ -74,6 +74,13 @@
   let themeSetting = "system";
   let buttonVisible = true; // ポップアップのトグルでON/OFF
 
+  // 表示/非表示はCSSクラス一つで切り替える(DOMの追加削除に依存しないため
+  // React再描画等のタイミングに関わらず確実に反映される)。
+  // 既存ボタン・スキャンで新規に追加されるボタンの両方に即座に効く。
+  function applyButtonVisibility() {
+    document.documentElement.classList.toggle("coderelay-hide", !buttonVisible);
+  }
+
   function refreshState() {
     safeSend({ type: "GET_STATE" }, (res) => {
       if (!res) return;
@@ -81,6 +88,7 @@
       themeSetting = res.theme || "system";
       buttonVisible = res.buttonVisible !== false;
       applyThemeAll();
+      applyButtonVisibility();
       scan(document);
     });
   }
@@ -92,7 +100,7 @@
       if (changes.rules || changes.defaultRuleId || changes.theme) refreshState();
       if (changes.buttonVisible) {
         buttonVisible = changes.buttonVisible.newValue !== false;
-        scan(document); // ポップアップでの切り替えを即座に反映
+        applyButtonVisibility(); // ポップアップでの切り替えを即座に反映
       }
       if (changes.lang) loadI18n(updateAllLabels);
     });
@@ -495,10 +503,8 @@
 
   function scan(root) {
     if (!alive()) return;
-    if (!buttonVisible) {
-      document.querySelectorAll("." + BTN_CLASS).forEach((w) => w.remove());
-      return;
-    }
+    // 表示/非表示はCSS(html.coderelay-hide)側で制御するため、非表示中も
+    // アタッチ自体は継続する(再表示時に即座に見えるようにするため)
     globalCleanup();
     (root.querySelectorAll ? root.querySelectorAll("pre") : []).forEach(
       attachButton

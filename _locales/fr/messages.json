@@ -65,7 +65,7 @@
     "message": "Renvoyer le dernier code"
   },
   "popOptions": {
-    "message": "Gérer les destinations…"
+    "message": "Paramètres"
   },
   "popShowButton": {
     "message": "Afficher le bouton Transférer sur les pages"

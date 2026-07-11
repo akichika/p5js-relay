@@ -65,7 +65,7 @@
     "message": "重新发送最近的代码"
   },
   "popOptions": {
-    "message": "管理目标…"
+    "message": "设置"
   },
   "popShowButton": {
     "message": "在页面上显示转发按钮"

@@ -177,3 +177,10 @@
   top: auto;
   opacity: 0.95;
 }
+
+/* ポップアップの表示/非表示トグル用。
+   DOMの追加/削除ではなくCSSクラス一つで確実に切り替える
+   (既存ボタン・今後スキャンで追加されるボタンの両方に即座に効く) */
+html.coderelay-hide .coderelay-btn-wrap {
+  display: none !important;
+}

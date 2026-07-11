@@ -65,7 +65,7 @@
     "message": "直近コードを再転送"
   },
   "popOptions": {
-    "message": "送信先の登録・編集…"
+    "message": "設定"
   },
   "popShowButton": {
     "message": "ページ上に転送ボタンを表示"
