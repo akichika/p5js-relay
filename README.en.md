@@ -6,6 +6,9 @@ One-tap transfer of code from Claude, ChatGPT, or Gemini into the p5.js Web Edit
 
 A Chrome / Microsoft Edge (Chromium-based browsers) extension (Manifest V3). A single generated HTML file is **automatically split into index.html / style.css / sketch.js** and pasted in.
 
+- for Chrome https://chromewebstore.google.com/detail/gehlhjinhkipjdpfobhiklhklhmkmcle?utm_source=item-share-cb
+- for Edge https://microsoftedge.microsoft.com/addons/detail/ldijkdjfmphilknfifpjblmnjcligopi
+
 - Repository: https://github.com/akichika/p5js-relay
 - Bug reports and pull requests are welcome on the repository above
 
