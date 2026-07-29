@@ -6,6 +6,10 @@ Claude / ChatGPT / Gemini で生成されたコードを p5.js Web Editor 等へ
 
 Chrome / Microsoft Edge（Chromium系ブラウザ）対応の拡張機能（Manifest V3）です。単一HTMLは **index.html / style.css / sketch.js に自動振り分け**して貼り付けます。
 
+
+- Chrome版https://chromewebstore.google.com/detail/gehlhjinhkipjdpfobhiklhklhmkmcle?utm_source=item-share-cb
+- Edge版https://microsoftedge.microsoft.com/addons/detail/ldijkdjfmphilknfifpjblmnjcligopi
+
 - リポジトリ: https://github.com/akichika/p5js-relay
 - Issue報告・Pull Requestは上記リポジトリへどうぞ
 
